@@ -1,0 +1,2181 @@
+{
+ "spec": "Relation-merge specification for the Freebase-to-Wikidata merge experiment on FB15k-237 inductive v1-v4 and the YAGO 4.5 merge on InGram WK-75",
+ "generated_by": "make_merge_spec.py (python3 -I make_merge_spec.py <base_dir> <out_json>)",
+ "sources": [
+  {
+   "id": "wikiproject_freebase_mapping",
+   "title": "Wikidata:WikiProject Freebase/Mapping",
+   "url": "https://www.wikidata.org/w/index.php?title=Wikidata:WikiProject_Freebase/Mapping&oldid=254788053&action=raw",
+   "page": "https://www.wikidata.org/wiki/Wikidata:WikiProject_Freebase/Mapping",
+   "revision_id": 254788053,
+   "revision_timestamp_utc": "2015-10-04T15:14:29Z",
+   "revision_size_bytes_reported_by_api": 115622,
+   "latest_revision_id_at_retrieval": 990009490,
+   "latest_revision_timestamp_utc": "2019-07-31T17:41:52Z",
+   "retrieved_utc": "2026-10-15T03:59:16Z",
+   "license": "CC BY-SA (Wikidata project-page text)",
+   "format": "MediaWiki wikitext tables: one row per Freebase property, cell 2 = Wikidata property as {{P|n}}, cell 3 = free-text comment",
+   "path": "dl_wd_fbmapping_2015/mapping_rev254788053.wikitext",
+   "used_for": "FB merge groups (Wikidata image of every FB15k-237 relation)",
+   "sha256": "1e61722e3bc86f9d3586a6bfc1084f18dae719adba90afe877d4dda5d265625d"
+  },
+  {
+   "id": "freebase_wikidata_converter_lib",
+   "title": "google/freebase-wikidata-converter convert/lib.php",
+   "url": "https://raw.githubusercontent.com/google/freebase-wikidata-converter/master/convert/lib.php",
+   "repository": "https://github.com/google/freebase-wikidata-converter",
+   "commit": "4e18711137030c41ee4ea558e2b7eb8292211b8d",
+   "commit_timestamp_utc": "2015-09-30T17:43:07Z",
+   "retrieved_utc": "2026-10-15T03:45:19Z",
+   "license": "Apache-2.0",
+   "format": "PHP source",
+   "path": "dl_gh_converter_src/convert_lib.php",
+   "used_for": "row regex, hard-coded property mappings and CVT rule applied to the mapping page",
+   "sha256": "0c64c17483cb4462cc857890651d2a8d365b35777af626239b389c9d7b12aa59"
+  },
+  {
+   "id": "yago_shapes_45",
+   "title": "YAGO 4.5 shapes, input-data/00-shapes.ttl (file header: 'This is the manually designed schema of YAGO 4.5')",
+   "url": "https://raw.githubusercontent.com/yago-naga/yago-4.6/4ef3c07ccf16675747427fe3e989a6ce96f19bae/input-data/00-shapes.ttl",
+   "repository": "https://github.com/yago-naga/yago-4.6 (GitHub repository id 632049237; named yago-naga/yago-4.5 when this commit was made)",
+   "commit": "4ef3c07ccf16675747427fe3e989a6ce96f19bae",
+   "commit_timestamp_utc": "2024-04-04T09:37:22Z",
+   "note": "last change to this file before the 'New 4.5.1 version of YAGO' commit b1edfd0f (2025-12-08); the repository has no release tags. The file's previous version (commit 9446700f, 2023-06-03) gives the same WK-75 groups: checks.wk75_yago45_previous_version",
+   "retrieved_utc": "2026-10-15T05:05:40Z",
+   "license": "CC BY (file header: 'CC-BY The YAGO Team'; current repository licence CC BY 4.0)",
+   "format": "Turtle / SHACL: property shapes carry sh:path (YAGO property) and ys:fromProperty (Wikidata wdt: properties) and sit inside node shapes (classes)",
+   "path": "dl_yago45_shapes_4ef3c07/00-shapes.ttl",
+   "used_for": "WK-75 merge groups",
+   "sha256": "749a658e22d27de9bb36e0a8bd1ec700690cd77067e7a3028807104bac7d746d"
+  }
+ ],
+ "data_inputs": {
+  "grail_fb237_ind": {
+   "repository": "https://github.com/kkteru/grail",
+   "commit": "2a3dffa719518e7e6250e355a2fb37cd932de91e",
+   "commit_timestamp_utc": "2020-06-17T22:06:58Z",
+   "files": "data/fb237_v{1,2,3,4}_ind/{train,valid,test}.txt (= train_ind, valid_ind, test_ind in ULTRA's raw directory)",
+   "retrieved_utc": "2026-10-15T03:51:58Z",
+   "path_pattern": "dl_grail/fb237_{v}_ind/{split}.txt",
+   "server_check": "per-relation triple counts equal those of the raw files on the GPU server for all 12 files"
+  },
+  "ingram_wk75": {
+   "repository": "https://github.com/bdi-lab/InGram",
+   "commit": "f2554dd0c684bad71d3e01d534f2f7814cf28644",
+   "commit_timestamp_utc": "2025-05-27T06:47:13Z",
+   "files": "data/WK-75/{msg,valid,test}.txt (= inference_graph, inf_valid, inf_test in ULTRA's raw directory)",
+   "retrieved_utc": "2026-10-15T03:59:52Z",
+   "path_pattern": "dl_ingram_wk75/{split}.txt",
+   "server_check": "per-relation triple counts equal those of the raw files on the GPU server for msg and test"
+  }
+ },
+ "mapping_page_parse": {
+  "row_regex": "convert/lib.php getPropertyMapping, applied to the text before '(/key/ namespace)'",
+  "rows_matched": 1073,
+  "rows_with_valid_property_cell": 289,
+  "hard_coded_mappings_from_lib_php": [
+   [
+    "/ns/measurement_unit.dated_float.number",
+    "QUANTITY"
+   ],
+   [
+    "/ns/measurement_unit.dated_integer.number",
+    "QUANTITY"
+   ],
+   [
+    "/ns/measurement_unit.dated_integer.source",
+    "S248"
+   ],
+   [
+    "/ns/measurement_unit.dated_money_value.amount",
+    "QUANTITY"
+   ],
+   [
+    "/ns/measurement_unit.dated_percentage.rate",
+    "QUANTITY"
+   ],
+   [
+    "/ns/measurement_unit.dated_percentage.source",
+    "S248"
+   ],
+   [
+    "/ns/measurement_unit.money_value.amount",
+    "QUANTITY"
+   ],
+   [
+    "/ns/location.mailing_address.citytown",
+    "ITEM"
+   ],
+   [
+    "/ns/people.person.spouse_s",
+    "SPOUSE"
+   ]
+  ],
+  "fb_relations_in_v1_v4_files": 207,
+  "fb_relations_with_a_wikidata_image": 53
+ },
+ "conventions": {
+  "reverse": "true when head and tail of the FB (or WK-75) triple must be swapped to align with the target property's direction",
+  "keep": "the merged relation takes the keep member's label and the keep member's native direction",
+  "relabel": "for an active group, every triple (h, m, t) of a present member m becomes (h, keep, t), or (t, keep, h) when swap_head_tail_when_relabelling_to_keep is true; duplicates in the inference graph are dropped",
+  "present": "the relation has at least one triple in the inference graph (FB: train_ind, the graph ULTRA builds the test-time relation graph from; WK-75: msg.txt = inference_graph)",
+  "active_group": "one rule for both sections: a group is applied to an inference graph only when at least two of its members are present in that graph (FB: per version, listed in active_in; WK-75: the single graph, recorded as active)",
+  "rules": {
+   "A": "the Wikidata image is a main-value statement: A1 direct row, A2 empty row annotated 'reverse of' a mapped property, A3 CVT link and CVT main property share one property (converter CVT rule, incl. its ITEM and SPOUSE special cases), A4 path that reverses a CVT main property",
+   "B": "CVT path whose object becomes a qualifier of the subject's statement (link property -> property, CVT property -> qualifier)"
+  },
+  "yago_mapping": "a WK-75 group is a set of Wikidata properties that the YAGO 4.5 shapes map to one YAGO property and to no other; YAGO keeps the Wikidata direction, so no member is reversed",
+  "yago_class_scope": "YAGO attaches each mapping to node shapes (classes, listed per member as yago_shapes); WK-75 has no entity types, so the relabelling applies each mapping to every triple of the property, whatever the subject's class",
+  "profile": "8 integers per relation node of ULTRA's relation graph built from the inference graph with inverse relations: out-degree for h2h, t2t, h2t, t2h, then in-degree in the same order; self-loops count",
+  "displacement_L1": "L1 distance between a member's node profile in the original inference graph and the merged relation's node profile in the merged inference graph, both in the target direction (the same value in the inverse direction)",
+  "tiers": {
+   "low": [
+    0,
+    16
+   ],
+   "mid": [
+    17,
+    63
+   ],
+   "high": [
+    64,
+    null
+   ]
+  },
+  "strata": "merged = query relation is a member of an applied group; profile_shifted = other relation whose node profile (either direction) changed; profile_identical = the rest",
+  "absorbed": "evaluation triples that, after relabelling, coincide with a triple of the merged inference graph; exclude them from both arms",
+  "evaluated_split": "pilot_harness.load_inductive uses ULTRA's FB15k237Inductive with merge_valid_test=True, so FB queries are valid_ind + test_ind; WK-75 queries are test.txt",
+  "filter": "FB: merged inference graph + merged valid_ind + merged test_ind; WK-75: merged inference graph + merged valid + merged test (the harness filters, relabelled)",
+  "loader_note": "ULTRA's GraIL loader builds the relation vocabulary from the transductive train.txt/valid.txt and asserts every inductive relation is in it; relabel all five raw files, and use a fresh dataset root because processed tensors are cached"
+ },
+ "fb": [
+  {
+   "id": "fb_P17",
+   "rule": "A",
+   "target": {
+    "property": "P17"
+   },
+   "keep": "/base/biblioness/bibs_location/country",
+   "keep_rule": "member with the most inference-graph triples summed over v1-v4",
+   "members": [
+    {
+     "relation": "/base/biblioness/bibs_location/country",
+     "reverse": false,
+     "keep": true,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "A1: mapping row gives a property",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 3,
+       "n_valid": 0,
+       "n_test": 0
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 5,
+       "n_valid": 1,
+       "n_test": 0
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 4,
+       "n_valid": 0,
+       "n_test": 0
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 22,
+       "n_valid": 1,
+       "n_test": 4
+      }
+     }
+    },
+    {
+     "relation": "/location/administrative_division/country",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "A1: mapping row gives a property",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 2,
+       "n_valid": 0,
+       "n_test": 0
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 8,
+       "n_valid": 1,
+       "n_test": 0
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 7,
+       "n_valid": 0,
+       "n_test": 0
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 10,
+       "n_valid": 4,
+       "n_test": 2
+      }
+     }
+    },
+    {
+     "relation": "/location/administrative_division/first_level_division_of",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "A1: mapping row gives a property",
+     "present_in": [
+      "v1",
+      "v2",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 1,
+       "n_valid": 1,
+       "n_test": 0
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 6,
+       "n_valid": 0,
+       "n_test": 2
+      },
+      "v3": {
+       "present": false,
+       "n_inference": 0,
+       "n_valid": 0,
+       "n_test": 0
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 7,
+       "n_valid": 1,
+       "n_test": 0
+      }
+     }
+    }
+   ],
+   "active_in": [
+    "v1",
+    "v2",
+    "v3",
+    "v4"
+   ]
+  },
+  {
+   "id": "fb_P58",
+   "rule": "A",
+   "target": {
+    "property": "P58"
+   },
+   "keep": "/film/film/written_by",
+   "keep_rule": "member with the most inference-graph triples summed over v1-v4",
+   "members": [
+    {
+     "relation": "/film/film/story_by",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "A1: mapping row gives a property",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 5,
+       "n_valid": 1,
+       "n_test": 1
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 4,
+       "n_valid": 0,
+       "n_test": 0
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 9,
+       "n_valid": 0,
+       "n_test": 3
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 20,
+       "n_valid": 1,
+       "n_test": 0
+      }
+     }
+    },
+    {
+     "relation": "/film/film/written_by",
+     "reverse": false,
+     "keep": true,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "A1: mapping row gives a property",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 11,
+       "n_valid": 3,
+       "n_test": 0
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 8,
+       "n_valid": 1,
+       "n_test": 1
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 19,
+       "n_valid": 2,
+       "n_test": 1
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 52,
+       "n_valid": 2,
+       "n_test": 1
+      }
+     }
+    }
+   ],
+   "active_in": [
+    "v1",
+    "v2",
+    "v3",
+    "v4"
+   ]
+  },
+  {
+   "id": "fb_P131",
+   "rule": "A",
+   "target": {
+    "property": "P131"
+   },
+   "keep": "/base/aareas/schema/administrative_area/administrative_parent",
+   "keep_rule": "member with the most inference-graph triples summed over v1-v4",
+   "members": [
+    {
+     "relation": "/base/aareas/schema/administrative_area/administrative_parent",
+     "reverse": false,
+     "keep": true,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "A1: mapping row gives a property",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 4,
+       "n_valid": 0,
+       "n_test": 0
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 11,
+       "n_valid": 1,
+       "n_test": 1
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 11,
+       "n_valid": 1,
+       "n_test": 0
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 18,
+       "n_valid": 0,
+       "n_test": 2
+      }
+     }
+    },
+    {
+     "relation": "/location/hud_county_place/county",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "A1: mapping row gives a property",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 3,
+       "n_valid": 1,
+       "n_test": 1
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 8,
+       "n_valid": 1,
+       "n_test": 1
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 14,
+       "n_valid": 2,
+       "n_test": 3
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 11,
+       "n_valid": 2,
+       "n_test": 0
+      }
+     }
+    }
+   ],
+   "active_in": [
+    "v1",
+    "v2",
+    "v3",
+    "v4"
+   ]
+  },
+  {
+   "id": "fb_P136",
+   "rule": "A",
+   "target": {
+    "property": "P136"
+   },
+   "keep": "/film/film/genre",
+   "keep_rule": "member with the most inference-graph triples summed over v1-v4",
+   "members": [
+    {
+     "relation": "/film/film/genre",
+     "reverse": false,
+     "keep": true,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "A1: mapping row gives a property",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 72,
+       "n_valid": 12,
+       "n_test": 8
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 77,
+       "n_valid": 11,
+       "n_test": 8
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 212,
+       "n_valid": 23,
+       "n_test": 31
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 505,
+       "n_valid": 46,
+       "n_test": 51
+      }
+     }
+    },
+    {
+     "relation": "/tv/tv_program/genre",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "A1: mapping row gives a property",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 8,
+       "n_valid": 0,
+       "n_test": 0
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 14,
+       "n_valid": 0,
+       "n_test": 4
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 19,
+       "n_valid": 0,
+       "n_test": 2
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 55,
+       "n_valid": 3,
+       "n_test": 5
+      }
+     }
+    }
+   ],
+   "active_in": [
+    "v1",
+    "v2",
+    "v3",
+    "v4"
+   ]
+  },
+  {
+   "id": "fb_P161",
+   "rule": "A",
+   "target": {
+    "property": "P161"
+   },
+   "keep": "/film/actor/film./film/performance/film",
+   "keep_rule": "member with the most inference-graph triples summed over v1-v4",
+   "members": [
+    {
+     "relation": "/film/actor/film./film/performance/film",
+     "reverse": true,
+     "keep": true,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "A4: link reverses the CVT main property, the object is the statement's subject",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 121,
+       "n_valid": 8,
+       "n_test": 7
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 164,
+       "n_valid": 14,
+       "n_test": 16
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 295,
+       "n_valid": 56,
+       "n_test": 30
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 452,
+       "n_valid": 46,
+       "n_test": 58
+      }
+     }
+    },
+    {
+     "relation": "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": true,
+     "derivation": "A3: CVT link property and CVT main property share one property",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 6,
+       "n_valid": 0,
+       "n_test": 1
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 32,
+       "n_valid": 2,
+       "n_test": 0
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 33,
+       "n_valid": 3,
+       "n_test": 5
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 74,
+       "n_valid": 8,
+       "n_test": 7
+      }
+     }
+    }
+   ],
+   "active_in": [
+    "v1",
+    "v2",
+    "v3",
+    "v4"
+   ]
+  },
+  {
+   "id": "fb_P364",
+   "rule": "A",
+   "target": {
+    "property": "P364"
+   },
+   "keep": "/film/film/language",
+   "keep_rule": "member with the most inference-graph triples summed over v1-v4",
+   "members": [
+    {
+     "relation": "/film/film/language",
+     "reverse": false,
+     "keep": true,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "A1: mapping row gives a property",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 29,
+       "n_valid": 1,
+       "n_test": 4
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 29,
+       "n_valid": 2,
+       "n_test": 5
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 35,
+       "n_valid": 5,
+       "n_test": 2
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 56,
+       "n_valid": 11,
+       "n_test": 4
+      }
+     }
+    },
+    {
+     "relation": "/tv/tv_program/languages",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "A1: mapping row gives a property",
+     "present_in": [
+      "v2",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": false,
+       "n_inference": 0,
+       "n_valid": 0,
+       "n_test": 0
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 2,
+       "n_valid": 0,
+       "n_test": 1
+      },
+      "v3": {
+       "present": false,
+       "n_inference": 0,
+       "n_valid": 0,
+       "n_test": 0
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 3,
+       "n_valid": 0,
+       "n_test": 0
+      }
+     }
+    }
+   ],
+   "active_in": [
+    "v2",
+    "v4"
+   ]
+  },
+  {
+   "id": "fb_P166_P1346",
+   "rule": "B",
+   "target": {
+    "property": "P166",
+    "qualifier": "P1346"
+   },
+   "keep": "/award/award_winner/awards_won./award/award_honor/award_winner",
+   "keep_rule": "member with the most inference-graph triples summed over v1-v4",
+   "members": [
+    {
+     "relation": "/award/award_winner/awards_won./award/award_honor/award_winner",
+     "reverse": false,
+     "keep": true,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "B: object is a qualifier of the subject's statement",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 78,
+       "n_valid": 5,
+       "n_test": 7
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 176,
+       "n_valid": 29,
+       "n_test": 27
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 293,
+       "n_valid": 33,
+       "n_test": 40
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 489,
+       "n_valid": 63,
+       "n_test": 69
+      }
+     }
+    },
+    {
+     "relation": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "B: object is a qualifier of the subject's statement",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 32,
+       "n_valid": 4,
+       "n_test": 2
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 61,
+       "n_valid": 4,
+       "n_test": 5
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 106,
+       "n_valid": 10,
+       "n_test": 11
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 137,
+       "n_valid": 13,
+       "n_test": 25
+      }
+     }
+    }
+   ],
+   "active_in": [
+    "v1",
+    "v2",
+    "v3",
+    "v4"
+   ]
+  },
+  {
+   "id": "fb_P1411_P1686",
+   "rule": "B",
+   "target": {
+    "property": "P1411",
+    "qualifier": "P1686"
+   },
+   "keep": "/award/award_nominee/award_nominations./award/award_nomination/nominated_for",
+   "keep_rule": "member with the most inference-graph triples summed over v1-v4",
+   "members": [
+    {
+     "relation": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "B: object is a qualifier of the subject's statement",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 4,
+       "n_valid": 0,
+       "n_test": 0
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 11,
+       "n_valid": 1,
+       "n_test": 2
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 27,
+       "n_valid": 2,
+       "n_test": 5
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 37,
+       "n_valid": 5,
+       "n_test": 12
+      }
+     }
+    },
+    {
+     "relation": "/award/award_nominee/award_nominations./award/award_nomination/nominated_for",
+     "reverse": false,
+     "keep": true,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "derivation": "B: object is a qualifier of the subject's statement",
+     "present_in": [
+      "v1",
+      "v2",
+      "v3",
+      "v4"
+     ],
+     "per_version": {
+      "v1": {
+       "present": true,
+       "n_inference": 53,
+       "n_valid": 8,
+       "n_test": 11
+      },
+      "v2": {
+       "present": true,
+       "n_inference": 103,
+       "n_valid": 5,
+       "n_test": 19
+      },
+      "v3": {
+       "present": true,
+       "n_inference": 217,
+       "n_valid": 36,
+       "n_test": 26
+      },
+      "v4": {
+       "present": true,
+       "n_inference": 295,
+       "n_valid": 42,
+       "n_test": 43
+      }
+     }
+    }
+   ],
+   "active_in": [
+    "v1",
+    "v2",
+    "v3",
+    "v4"
+   ]
+  }
+ ],
+ "wk75": [
+  {
+   "id": "wk75_memberOf",
+   "target": {
+    "yago_property": "schema:memberOf"
+   },
+   "active": true,
+   "keep": "P463",
+   "keep_rule": "member with the most inference-graph triples (same rule as FB)",
+   "members": [
+    {
+     "relation": "P54",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "yago_shapes": [
+      "schema:Person"
+     ],
+     "present": true,
+     "n_inference": 403,
+     "n_valid": 27,
+     "n_test": 32
+    },
+    {
+     "relation": "P102",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "yago_shapes": [
+      "schema:Person"
+     ],
+     "present": true,
+     "n_inference": 6,
+     "n_valid": 8,
+     "n_test": 6
+    },
+    {
+     "relation": "P463",
+     "reverse": false,
+     "keep": true,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "yago_shapes": [
+      "schema:AdministrativeArea",
+      "schema:Organization",
+      "schema:Person"
+     ],
+     "present": true,
+     "n_inference": 513,
+     "n_valid": 141,
+     "n_test": 143
+    }
+   ]
+  },
+  {
+   "id": "wk75_location",
+   "target": {
+    "yago_property": "schema:location"
+   },
+   "active": true,
+   "keep": "P17",
+   "keep_rule": "member with the most inference-graph triples (same rule as FB)",
+   "members": [
+    {
+     "relation": "P17",
+     "reverse": false,
+     "keep": true,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "yago_shapes": [
+      "schema:Organization",
+      "schema:Place"
+     ],
+     "present": true,
+     "n_inference": 78,
+     "n_valid": 48,
+     "n_test": 53
+    },
+    {
+     "relation": "P131",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "yago_shapes": [
+      "schema:Event",
+      "schema:Organization",
+      "schema:Place"
+     ],
+     "present": true,
+     "n_inference": 1,
+     "n_valid": 0,
+     "n_test": 1
+    },
+    {
+     "relation": "P159",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "yago_shapes": [
+      "schema:Organization"
+     ],
+     "present": true,
+     "n_inference": 9,
+     "n_valid": 1,
+     "n_test": 1
+    },
+    {
+     "relation": "P276",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "yago_shapes": [
+      "schema:Event",
+      "schema:Organization",
+      "schema:Place"
+     ],
+     "present": true,
+     "n_inference": 1,
+     "n_valid": 0,
+     "n_test": 1
+    }
+   ]
+  },
+  {
+   "id": "wk75_participant",
+   "target": {
+    "yago_property": "yago:participant"
+   },
+   "active": true,
+   "keep": "P1923",
+   "keep_rule": "member with the most inference-graph triples (same rule as FB)",
+   "members": [
+    {
+     "relation": "P710",
+     "reverse": false,
+     "keep": false,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "yago_shapes": [
+      "schema:Event"
+     ],
+     "present": true,
+     "n_inference": 1,
+     "n_valid": 0,
+     "n_test": 0
+    },
+    {
+     "relation": "P1923",
+     "reverse": false,
+     "keep": true,
+     "swap_head_tail_when_relabelling_to_keep": false,
+     "yago_shapes": [
+      "schema:Event"
+     ],
+     "present": true,
+     "n_inference": 3,
+     "n_valid": 0,
+     "n_test": 0
+    }
+   ]
+  }
+ ],
+ "reference_not_run": {
+  "note": "Groups the YAGO 4.6 development schema forms among the WK-75 relations. Recorded for reference; not part of the experiment.",
+  "source": {
+   "id": "yago_schema_46dev",
+   "title": "YAGO 4.6 development schema, input-data/yago-schema.ttl (file header: 'This is the manually designed schema of YAGO 4.6')",
+   "url": "https://raw.githubusercontent.com/yago-naga/yago-4.6/main/input-data/yago-schema.ttl",
+   "pinned_url": "https://raw.githubusercontent.com/yago-naga/yago-4.6/5f84fa960fca294ad3784c974a78a127b21cd358/input-data/yago-schema.ttl",
+   "repository": "https://github.com/yago-naga/yago-4.6 (GitHub repository id 632049237)",
+   "commit": "5f84fa960fca294ad3784c974a78a127b21cd358",
+   "commit_timestamp_utc": "2026-09-04T11:51:16Z",
+   "last_commit_touching_file": "3c73b23cfd61e417a613383041a91c0cdd8aeec6",
+   "last_commit_touching_file_timestamp_utc": "2026-09-03T13:59:17Z",
+   "file_first_commit": "2f767c371a52c6bbe15a12af67b3349c72ef618f (2025-12-10)",
+   "retrieved_utc": "2026-10-15T03:57:58Z",
+   "license": "CC BY 4.0",
+   "format": "Turtle / SHACL, same vocabulary as the YAGO 4.5 shapes",
+   "path": "dl_yago46_schema/yago-schema.ttl",
+   "sha256": "a9af44930f2b27f38557b542701e8174268a4e37ddfd0f048625721ab4d7d5e5"
+  },
+  "groups": [
+   {
+    "yago_property": "rdf:type",
+    "members": [
+     "P31",
+     "P106",
+     "P136"
+    ],
+    "n_inference": {
+     "P31": 66,
+     "P106": 111,
+     "P136": 556
+    },
+    "n_test": {
+     "P31": 97,
+     "P106": 28,
+     "P136": 100
+    }
+   },
+   {
+    "yago_property": "schema:location",
+    "members": [
+     "P17",
+     "P30",
+     "P131",
+     "P276",
+     "P551"
+    ],
+    "n_inference": {
+     "P17": 78,
+     "P30": 5,
+     "P131": 1,
+     "P276": 1,
+     "P551": 1
+    },
+    "n_test": {
+     "P17": 53,
+     "P30": 4,
+     "P131": 1,
+     "P276": 1,
+     "P551": 0
+    }
+   },
+   {
+    "yago_property": "yago:creator",
+    "members": [
+     "P112",
+     "P170"
+    ],
+    "n_inference": {
+     "P112": 1,
+     "P170": 1
+    },
+    "n_test": {
+     "P112": 0,
+     "P170": 0
+    }
+   },
+   {
+    "yago_property": "yago:participant",
+    "members": [
+     "P710",
+     "P1923"
+    ],
+    "n_inference": {
+     "P710": 1,
+     "P1923": 3
+    },
+    "n_test": {
+     "P710": 0,
+     "P1923": 0
+    }
+   }
+  ],
+  "test_triples_on_type_and_location_members": 284
+ },
+ "checks": {
+  "fb": {
+   "per_version": {
+    "v1": {
+     "n_relations_inference": 142,
+     "A": {
+      "active_groups": [
+       "fb_P17",
+       "fb_P58",
+       "fb_P131",
+       "fb_P136",
+       "fb_P161"
+      ],
+      "n_relations_inference_after": 136,
+      "per_split": {
+       "test_ind": {
+        "n_triples": 205,
+        "affected": 18,
+        "affected_share": 0.0878,
+        "absorbed_into_merged_inference_graph": [],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 18,
+         "profile_shifted": 100,
+         "profile_identical": 87
+        },
+        "tiers": {
+         "low": 15,
+         "mid": 1,
+         "high": 2
+        }
+       },
+       "valid_ind+test_ind": {
+        "n_triples": 411,
+        "affected": 44,
+        "affected_share": 0.1071,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/04fzfj",
+          "/film/film/story_by",
+          "/m/08hp53"
+         ],
+         [
+          "/m/0j11",
+          "/location/administrative_division/first_level_division_of",
+          "/m/049nq"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 44,
+         "profile_shifted": 193,
+         "profile_identical": 174
+        },
+        "tiers": {
+         "low": 38,
+         "mid": 3,
+         "high": 3
+        }
+       }
+      }
+     },
+     "A+B": {
+      "active_groups": [
+       "fb_P17",
+       "fb_P58",
+       "fb_P131",
+       "fb_P136",
+       "fb_P161",
+       "fb_P166_P1346",
+       "fb_P1411_P1686"
+      ],
+      "n_relations_inference_after": 134,
+      "per_split": {
+       "test_ind": {
+        "n_triples": 205,
+        "affected": 38,
+        "affected_share": 0.1854,
+        "absorbed_into_merged_inference_graph": [],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 38,
+         "profile_shifted": 96,
+         "profile_identical": 71
+        },
+        "tiers": {
+         "low": 26,
+         "mid": 1,
+         "high": 11
+        }
+       },
+       "valid_ind+test_ind": {
+        "n_triples": 411,
+        "affected": 81,
+        "affected_share": 0.1971,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/04fzfj",
+          "/film/film/story_by",
+          "/m/08hp53"
+         ],
+         [
+          "/m/0j11",
+          "/location/administrative_division/first_level_division_of",
+          "/m/049nq"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 81,
+         "profile_shifted": 195,
+         "profile_identical": 135
+        },
+        "tiers": {
+         "low": 57,
+         "mid": 3,
+         "high": 21
+        }
+       }
+      },
+      "displacement_L1": {
+       "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for": 208,
+       "/award/award_nominee/award_nominations./award/award_nomination/nominated_for": 12,
+       "/award/award_winner/awards_won./award/award_honor/award_winner": 96,
+       "/award/award_winning_work/awards_won./award/award_honor/award_winner": 152,
+       "/base/aareas/schema/administrative_area/administrative_parent": 4,
+       "/base/biblioness/bibs_location/country": 4,
+       "/film/actor/film./film/performance/film": 12,
+       "/film/film/genre": 12,
+       "/film/film/story_by": 72,
+       "/film/film/written_by": 8,
+       "/location/administrative_division/country": 32,
+       "/location/administrative_division/first_level_division_of": 36,
+       "/location/hud_county_place/county": 48,
+       "/tv/tv_program/genre": 92,
+       "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor": 140
+      }
+     }
+    },
+    "v2": {
+     "n_relations_inference": 172,
+     "A": {
+      "active_groups": [
+       "fb_P17",
+       "fb_P58",
+       "fb_P131",
+       "fb_P136",
+       "fb_P161",
+       "fb_P364"
+      ],
+      "n_relations_inference_after": 165,
+      "per_split": {
+       "test_ind": {
+        "n_triples": 478,
+        "affected": 39,
+        "affected_share": 0.0816,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/015g28",
+          "/film/film/language",
+          "/m/04306rv"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 39,
+         "profile_shifted": 276,
+         "profile_identical": 163
+        },
+        "tiers": {
+         "low": 29,
+         "mid": 4,
+         "high": 6
+        }
+       },
+       "valid_ind+test_ind": {
+        "n_triples": 947,
+        "affected": 73,
+        "affected_share": 0.0771,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/0159h6",
+          "/film/actor/film./film/performance/film",
+          "/m/02py4c8"
+         ],
+         [
+          "/m/015g28",
+          "/film/film/language",
+          "/m/04306rv"
+         ],
+         [
+          "/m/0bwgc_",
+          "/film/actor/film./film/performance/film",
+          "/m/08y2fn"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 73,
+         "profile_shifted": 575,
+         "profile_identical": 299
+        },
+        "tiers": {
+         "low": 58,
+         "mid": 6,
+         "high": 9
+        }
+       }
+      }
+     },
+     "A+B": {
+      "active_groups": [
+       "fb_P17",
+       "fb_P58",
+       "fb_P131",
+       "fb_P136",
+       "fb_P161",
+       "fb_P364",
+       "fb_P166_P1346",
+       "fb_P1411_P1686"
+      ],
+      "n_relations_inference_after": 163,
+      "per_split": {
+       "test_ind": {
+        "n_triples": 478,
+        "affected": 92,
+        "affected_share": 0.1925,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/015g28",
+          "/film/film/language",
+          "/m/04306rv"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 92,
+         "profile_shifted": 248,
+         "profile_identical": 138
+        },
+        "tiers": {
+         "low": 29,
+         "mid": 4,
+         "high": 59
+        }
+       },
+       "valid_ind+test_ind": {
+        "n_triples": 947,
+        "affected": 165,
+        "affected_share": 0.1742,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/0159h6",
+          "/film/actor/film./film/performance/film",
+          "/m/02py4c8"
+         ],
+         [
+          "/m/015g28",
+          "/film/film/language",
+          "/m/04306rv"
+         ],
+         [
+          "/m/0bwgc_",
+          "/film/actor/film./film/performance/film",
+          "/m/08y2fn"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 165,
+         "profile_shifted": 528,
+         "profile_identical": 254
+        },
+        "tiers": {
+         "low": 58,
+         "mid": 6,
+         "high": 101
+        }
+       }
+      },
+      "displacement_L1": {
+       "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for": 280,
+       "/award/award_nominee/award_nominations./award/award_nomination/nominated_for": 80,
+       "/award/award_winner/awards_won./award/award_honor/award_winner": 132,
+       "/award/award_winning_work/awards_won./award/award_honor/award_winner": 256,
+       "/base/aareas/schema/administrative_area/administrative_parent": 24,
+       "/base/biblioness/bibs_location/country": 8,
+       "/film/actor/film./film/performance/film": 4,
+       "/film/film/genre": 4,
+       "/film/film/language": 4,
+       "/film/film/story_by": 64,
+       "/film/film/written_by": 24,
+       "/location/administrative_division/country": 12,
+       "/location/administrative_division/first_level_division_of": 24,
+       "/location/hud_county_place/county": 92,
+       "/tv/tv_program/genre": 108,
+       "/tv/tv_program/languages": 96,
+       "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor": 172
+      }
+     }
+    },
+    "v3": {
+     "n_relations_inference": 183,
+     "A": {
+      "active_groups": [
+       "fb_P17",
+       "fb_P58",
+       "fb_P131",
+       "fb_P136",
+       "fb_P161"
+      ],
+      "n_relations_inference_after": 178,
+      "per_split": {
+       "test_ind": {
+        "n_triples": 865,
+        "affected": 75,
+        "affected_share": 0.0867,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/01f39b",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/01gn36"
+         ],
+         [
+          "/m/02py4c8",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/0159h6"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 75,
+         "profile_shifted": 602,
+         "profile_identical": 188
+        },
+        "tiers": {
+         "low": 62,
+         "mid": 0,
+         "high": 13
+        }
+       },
+       "valid_ind+test_ind": {
+        "n_triples": 1731,
+        "affected": 162,
+        "affected_share": 0.0936,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/01f39b",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/01gn36"
+         ],
+         [
+          "/m/02py4c8",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/0159h6"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 162,
+         "profile_shifted": 1199,
+         "profile_identical": 370
+        },
+        "tiers": {
+         "low": 143,
+         "mid": 1,
+         "high": 18
+        }
+       }
+      }
+     },
+     "A+B": {
+      "active_groups": [
+       "fb_P17",
+       "fb_P58",
+       "fb_P131",
+       "fb_P136",
+       "fb_P161",
+       "fb_P166_P1346",
+       "fb_P1411_P1686"
+      ],
+      "n_relations_inference_after": 176,
+      "per_split": {
+       "test_ind": {
+        "n_triples": 865,
+        "affected": 157,
+        "affected_share": 0.1815,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/01f39b",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/01gn36"
+         ],
+         [
+          "/m/02py4c8",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/0159h6"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 157,
+         "profile_shifted": 551,
+         "profile_identical": 157
+        },
+        "tiers": {
+         "low": 62,
+         "mid": 0,
+         "high": 95
+        }
+       },
+       "valid_ind+test_ind": {
+        "n_triples": 1731,
+        "affected": 325,
+        "affected_share": 0.1878,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/01f39b",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/01gn36"
+         ],
+         [
+          "/m/02py4c8",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/0159h6"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 325,
+         "profile_shifted": 1107,
+         "profile_identical": 299
+        },
+        "tiers": {
+         "low": 143,
+         "mid": 1,
+         "high": 181
+        }
+       }
+      },
+      "displacement_L1": {
+       "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for": 344,
+       "/award/award_nominee/award_nominations./award/award_nomination/nominated_for": 96,
+       "/award/award_winner/awards_won./award/award_honor/award_winner": 140,
+       "/award/award_winning_work/awards_won./award/award_honor/award_winner": 276,
+       "/base/aareas/schema/administrative_area/administrative_parent": 40,
+       "/base/biblioness/bibs_location/country": 16,
+       "/film/actor/film./film/performance/film": 8,
+       "/film/film/genre": 4,
+       "/film/film/story_by": 64,
+       "/film/film/written_by": 4,
+       "/location/administrative_division/country": 20,
+       "/location/hud_county_place/county": 92,
+       "/tv/tv_program/genre": 112,
+       "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor": 192
+      }
+     }
+    },
+    "v4": {
+     "n_relations_inference": 200,
+     "A": {
+      "active_groups": [
+       "fb_P17",
+       "fb_P58",
+       "fb_P131",
+       "fb_P136",
+       "fb_P161",
+       "fb_P364"
+      ],
+      "n_relations_inference_after": 193,
+      "per_split": {
+       "test_ind": {
+        "n_triples": 1424,
+        "affected": 134,
+        "affected_share": 0.0941,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/016ywr",
+          "/film/actor/film./film/performance/film",
+          "/m/0bbm7r"
+         ],
+         [
+          "/m/0199wf",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/015qt5"
+         ],
+         [
+          "/m/04q42",
+          "/base/biblioness/bibs_location/country",
+          "/m/059j2"
+         ],
+         [
+          "/m/09krp",
+          "/base/biblioness/bibs_location/country",
+          "/m/0345h"
+         ],
+         [
+          "/m/0fqyc",
+          "/location/administrative_division/country",
+          "/m/059j2"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 134,
+         "profile_shifted": 1060,
+         "profile_identical": 230
+        },
+        "tiers": {
+         "low": 120,
+         "mid": 2,
+         "high": 12
+        }
+       },
+       "valid_ind+test_ind": {
+        "n_triples": 2840,
+        "affected": 259,
+        "affected_share": 0.0912,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/016ywr",
+          "/film/actor/film./film/performance/film",
+          "/m/0bbm7r"
+         ],
+         [
+          "/m/0199wf",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/0154d7"
+         ],
+         [
+          "/m/0199wf",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/015qt5"
+         ],
+         [
+          "/m/04q42",
+          "/base/biblioness/bibs_location/country",
+          "/m/059j2"
+         ],
+         [
+          "/m/04t6fk",
+          "/film/film/written_by",
+          "/m/01f7j9"
+         ],
+         [
+          "/m/05kr_",
+          "/location/administrative_division/country",
+          "/m/0d060g"
+         ],
+         [
+          "/m/09krp",
+          "/base/biblioness/bibs_location/country",
+          "/m/0345h"
+         ],
+         [
+          "/m/09krp",
+          "/location/administrative_division/country",
+          "/m/0345h"
+         ],
+         [
+          "/m/0c0k1",
+          "/film/actor/film./film/performance/film",
+          "/m/0199wf"
+         ],
+         [
+          "/m/0fcrg",
+          "/location/administrative_division/country",
+          "/m/059j2"
+         ],
+         [
+          "/m/0fcrg",
+          "/location/administrative_division/first_level_division_of",
+          "/m/059j2"
+         ],
+         [
+          "/m/0fqyc",
+          "/location/administrative_division/country",
+          "/m/059j2"
+         ]
+        ],
+        "duplicate_targets_after_merge": [
+         [
+          "/m/09krp",
+          "/base/biblioness/bibs_location/country",
+          "/m/0345h"
+         ],
+         [
+          "/m/09krp",
+          "/location/administrative_division/country",
+          "/m/0345h"
+         ],
+         [
+          "/m/0fcrg",
+          "/location/administrative_division/country",
+          "/m/059j2"
+         ],
+         [
+          "/m/0fcrg",
+          "/location/administrative_division/first_level_division_of",
+          "/m/059j2"
+         ]
+        ],
+        "strata": {
+         "merged": 259,
+         "profile_shifted": 2157,
+         "profile_identical": 424
+        },
+        "tiers": {
+         "low": 230,
+         "mid": 4,
+         "high": 25
+        }
+       }
+      }
+     },
+     "A+B": {
+      "active_groups": [
+       "fb_P17",
+       "fb_P58",
+       "fb_P131",
+       "fb_P136",
+       "fb_P161",
+       "fb_P364",
+       "fb_P166_P1346",
+       "fb_P1411_P1686"
+      ],
+      "n_relations_inference_after": 191,
+      "per_split": {
+       "test_ind": {
+        "n_triples": 1424,
+        "affected": 283,
+        "affected_share": 0.1987,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/016ywr",
+          "/film/actor/film./film/performance/film",
+          "/m/0bbm7r"
+         ],
+         [
+          "/m/0199wf",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/015qt5"
+         ],
+         [
+          "/m/04q42",
+          "/base/biblioness/bibs_location/country",
+          "/m/059j2"
+         ],
+         [
+          "/m/09krp",
+          "/base/biblioness/bibs_location/country",
+          "/m/0345h"
+         ],
+         [
+          "/m/0fqyc",
+          "/location/administrative_division/country",
+          "/m/059j2"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 283,
+         "profile_shifted": 955,
+         "profile_identical": 186
+        },
+        "tiers": {
+         "low": 120,
+         "mid": 2,
+         "high": 161
+        }
+       },
+       "valid_ind+test_ind": {
+        "n_triples": 2840,
+        "affected": 531,
+        "affected_share": 0.187,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/016ywr",
+          "/film/actor/film./film/performance/film",
+          "/m/0bbm7r"
+         ],
+         [
+          "/m/0199wf",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/0154d7"
+         ],
+         [
+          "/m/0199wf",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/015qt5"
+         ],
+         [
+          "/m/04q42",
+          "/base/biblioness/bibs_location/country",
+          "/m/059j2"
+         ],
+         [
+          "/m/04t6fk",
+          "/film/film/written_by",
+          "/m/01f7j9"
+         ],
+         [
+          "/m/05kr_",
+          "/location/administrative_division/country",
+          "/m/0d060g"
+         ],
+         [
+          "/m/09krp",
+          "/base/biblioness/bibs_location/country",
+          "/m/0345h"
+         ],
+         [
+          "/m/09krp",
+          "/location/administrative_division/country",
+          "/m/0345h"
+         ],
+         [
+          "/m/0c0k1",
+          "/film/actor/film./film/performance/film",
+          "/m/0199wf"
+         ],
+         [
+          "/m/0fcrg",
+          "/location/administrative_division/country",
+          "/m/059j2"
+         ],
+         [
+          "/m/0fcrg",
+          "/location/administrative_division/first_level_division_of",
+          "/m/059j2"
+         ],
+         [
+          "/m/0fqyc",
+          "/location/administrative_division/country",
+          "/m/059j2"
+         ]
+        ],
+        "duplicate_targets_after_merge": [
+         [
+          "/m/09krp",
+          "/base/biblioness/bibs_location/country",
+          "/m/0345h"
+         ],
+         [
+          "/m/09krp",
+          "/location/administrative_division/country",
+          "/m/0345h"
+         ],
+         [
+          "/m/0fcrg",
+          "/location/administrative_division/country",
+          "/m/059j2"
+         ],
+         [
+          "/m/0fcrg",
+          "/location/administrative_division/first_level_division_of",
+          "/m/059j2"
+         ]
+        ],
+        "strata": {
+         "merged": 531,
+         "profile_shifted": 1977,
+         "profile_identical": 332
+        },
+        "tiers": {
+         "low": 230,
+         "mid": 4,
+         "high": 297
+        }
+       }
+      },
+      "displacement_L1": {
+       "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for": 296,
+       "/award/award_nominee/award_nominations./award/award_nomination/nominated_for": 124,
+       "/award/award_winner/awards_won./award/award_honor/award_winner": 148,
+       "/award/award_winning_work/awards_won./award/award_honor/award_winner": 332,
+       "/base/aareas/schema/administrative_area/administrative_parent": 56,
+       "/base/biblioness/bibs_location/country": 0,
+       "/film/actor/film./film/performance/film": 8,
+       "/film/film/genre": 12,
+       "/film/film/language": 8,
+       "/film/film/story_by": 36,
+       "/film/film/written_by": 16,
+       "/location/administrative_division/country": 16,
+       "/location/administrative_division/first_level_division_of": 32,
+       "/location/hud_county_place/county": 204,
+       "/tv/tv_program/genre": 120,
+       "/tv/tv_program/languages": 100,
+       "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor": 180
+      }
+     }
+    }
+   },
+   "totals": {
+    "test_ind": {
+     "n_triples": 2972,
+     "affected_A": 266,
+     "affected_A+B": 570,
+     "tiers_A+B": {
+      "low": 237,
+      "mid": 7,
+      "high": 326
+     }
+    },
+    "valid_ind+test_ind": {
+     "n_triples": 5929,
+     "affected_A": 538,
+     "affected_A+B": 1102,
+     "tiers_A+B": {
+      "low": 488,
+      "mid": 14,
+      "high": 600
+     }
+    }
+   }
+  },
+  "wk75": {
+   "evaluated_split": "test (InGram WK-75 test targets, as ULTRA evaluates)",
+   "active_groups": [
+    "wk75_memberOf",
+    "wk75_location",
+    "wk75_participant"
+   ],
+   "affected_by_group": {
+    "wk75_memberOf": 181,
+    "wk75_location": 56,
+    "wk75_participant": 0
+   },
+   "n_relations_inference_after": 59,
+   "per_split": {
+    "test": {
+     "n_triples": 1144,
+     "affected": 237,
+     "affected_share": 0.2072,
+     "absorbed_into_merged_inference_graph": [],
+     "duplicate_targets_after_merge": [],
+     "strata": {
+      "merged": 237,
+      "profile_shifted": 537,
+      "profile_identical": 370
+     },
+     "tiers": {
+      "low": 0,
+      "mid": 196,
+      "high": 41
+     }
+    }
+   },
+   "displacement_L1": {
+    "P17": 24,
+    "P54": 132,
+    "P102": 148,
+    "P131": 196,
+    "P159": 180,
+    "P276": 188,
+    "P463": 24,
+    "P710": 4,
+    "P1923": 36
+   }
+  },
+  "wk75_yago45_previous_version": {
+   "commit": "9446700f62931a445b35237b914e83f19a48b507",
+   "commit_timestamp_utc": "2023-06-03T08:31:40Z",
+   "url": "https://raw.githubusercontent.com/yago-naga/yago-4.6/9446700f62931a445b35237b914e83f19a48b507/input-data/00-shapes.ttl",
+   "retrieved_utc": "2026-10-15T07:44:49Z",
+   "sha256": "cf0ae841066e5bdc8c5329bf3b2d98f9b8996f12220a9d73dfcfea272e678ce4",
+   "same_wk75_groups": true
+  },
+  "warnings": [],
+  "report_values": {
+   "fb_affected_test_ind": {
+    "A": [
+     18,
+     39,
+     75,
+     134
+    ],
+    "A+B": [
+     38,
+     92,
+     157,
+     283
+    ]
+   },
+   "fb_tiers_test_ind_A+B_total": {
+    "low": 237,
+    "mid": 7,
+    "high": 326
+   },
+   "fb_strata_test_ind_A+B_v4": {
+    "merged": 283,
+    "profile_shifted": 955,
+    "profile_identical": 186
+   },
+   "fb_absorbed_test_ind": [
+    0,
+    1,
+    2,
+    5
+   ],
+   "fb_groups": [
+    "P131",
+    "P136",
+    "P1411|P1686",
+    "P161",
+    "P166|P1346",
+    "P17",
+    "P364",
+    "P58"
+   ],
+   "wk75_affected_test": 237,
+   "wk75_affected_by_group": {
+    "wk75_memberOf": 181,
+    "wk75_location": 56,
+    "wk75_participant": 0
+   },
+   "reference_46_type_location_test": 284
+  },
+  "computed_values": {
+   "fb_affected_test_ind": {
+    "A": [
+     18,
+     39,
+     75,
+     134
+    ],
+    "A+B": [
+     38,
+     92,
+     157,
+     283
+    ]
+   },
+   "fb_tiers_test_ind_A+B_total": {
+    "low": 237,
+    "mid": 7,
+    "high": 326
+   },
+   "fb_strata_test_ind_A+B_v4": {
+    "merged": 283,
+    "profile_shifted": 955,
+    "profile_identical": 186
+   },
+   "fb_absorbed_test_ind": [
+    0,
+    1,
+    2,
+    5
+   ],
+   "fb_groups": [
+    "P131",
+    "P136",
+    "P1411|P1686",
+    "P161",
+    "P166|P1346",
+    "P17",
+    "P364",
+    "P58"
+   ],
+   "wk75_affected_test": 237,
+   "wk75_affected_by_group": {
+    "wk75_memberOf": 181,
+    "wk75_location": 56,
+    "wk75_participant": 0
+   },
+   "reference_46_type_location_test": 284
+  },
+  "matches_report": {
+   "fb_affected_test_ind": true,
+   "fb_tiers_test_ind_A+B_total": true,
+   "fb_strata_test_ind_A+B_v4": true,
+   "fb_absorbed_test_ind": true,
+   "fb_groups": true,
+   "wk75_affected_test": true,
+   "wk75_affected_by_group": true,
+   "reference_46_type_location_test": true
+  }
+ }
+}

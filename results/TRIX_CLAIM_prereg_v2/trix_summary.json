@@ -1,0 +1,20 @@
+{
+  "claim": {
+    "nl-50": {
+      "base_mrr": 0.4053020179271698,
+      "l4_permutable_fraction": 0.17647058823529413
+    },
+    "nl-75": {
+      "base_mrr": 0.3512597680091858,
+      "l4_permutable_fraction": 0.2672413793103448
+    },
+    "nl-100": {
+      "base_mrr": 0.4683346748352051,
+      "l4_permutable_fraction": 0.05660377358490566
+    },
+    "wk-75": {
+      "base_mrr": 0.36814022064208984,
+      "l4_permutable_fraction": 0.13846153846153847
+    }
+  }
+}

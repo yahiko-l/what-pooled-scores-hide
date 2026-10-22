@@ -1,0 +1,32 @@
+{
+  "claim": {
+    "nl-50": {
+      "ckpt": "ultra_3g",
+      "base_mrr": 0.3975643217563629,
+      "n_rel_doubled": 238,
+      "l4_permutable_nodes": 144,
+      "l4_permutable_frac": 0.605
+    },
+    "nl-75": {
+      "ckpt": "ultra_3g",
+      "base_mrr": 0.3478427231311798,
+      "n_rel_doubled": 232,
+      "l4_permutable_nodes": 148,
+      "l4_permutable_frac": 0.6379
+    },
+    "nl-100": {
+      "ckpt": "ultra_3g",
+      "base_mrr": 0.44177982211112976,
+      "n_rel_doubled": 106,
+      "l4_permutable_nodes": 52,
+      "l4_permutable_frac": 0.4906
+    },
+    "wk-75": {
+      "ckpt": "ultra_3g",
+      "base_mrr": 0.37314456701278687,
+      "n_rel_doubled": 130,
+      "l4_permutable_nodes": 66,
+      "l4_permutable_frac": 0.5077
+    }
+  }
+}

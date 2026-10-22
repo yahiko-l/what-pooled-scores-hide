@@ -1,0 +1,64 @@
+{"run": "R1", "dataset": "fb-v1", "rung": "L0", "seed": -1, "mrr": 0.48626020550727844, "hits@10": 0.6569343209266663}
+{"run": "R1", "dataset": "fb-v1", "rung": "L4", "seed": 0, "build_sec": 0.1, "mrr": 0.424824982881546, "hits@10": 0.5815085172653198, "recovery": 0.8736577208440997, "permutable_nodes": 216, "n_nodes": 360}
+{"run": "R1", "dataset": "fb-v1", "rung": "L4", "seed": 1, "build_sec": 0.1, "mrr": 0.4068720042705536, "hits@10": 0.5632603168487549, "recovery": 0.8367372029657622, "permutable_nodes": 216, "n_nodes": 360}
+{"run": "R1", "dataset": "fb-v1", "rung": "L4", "seed": 2, "build_sec": 0.1, "mrr": 0.4395100474357605, "hits@10": 0.5961070656776428, "recovery": 0.9038577338985597, "permutable_nodes": 216, "n_nodes": 360}
+{"run": "R1", "dataset": "fb-v1", "rung": "L4", "seed": 3, "build_sec": 0.1, "mrr": 0.43713757395744324, "hits@10": 0.5912408828735352, "recovery": 0.898978713465791, "permutable_nodes": 216, "n_nodes": 360}
+{"run": "R1", "dataset": "fb-v1", "rung": "L4", "seed": 4, "build_sec": 0.1, "mrr": 0.4150641858577728, "hits@10": 0.5717761516571045, "recovery": 0.8535845235863261, "permutable_nodes": 216, "n_nodes": 360}
+{"run": "R1", "dataset": "fb-v1", "rung": "L4loose", "seed": 0, "build_sec": 0.1, "mrr": 0.08801742643117905, "hits@10": 0.11070559173822403, "recovery": 0.1810089031225085, "permutable_nodes": 360, "n_nodes": 360}
+{"run": "R1", "dataset": "fb-v1", "rung": "L4loose", "seed": 1, "build_sec": 0.1, "mrr": 0.0917755514383316, "hits@10": 0.12530413269996643, "recovery": 0.18873753270103685, "permutable_nodes": 360, "n_nodes": 360}
+{"run": "R1", "dataset": "fb-v1", "rung": "L4loose", "seed": 2, "build_sec": 0.1, "mrr": 0.09349530190229416, "hits@10": 0.12408758699893951, "recovery": 0.1922742203519725, "permutable_nodes": 360, "n_nodes": 360}
+{"run": "R1", "dataset": "fb-v1", "rung": "L4loose", "seed": 3, "build_sec": 0.1, "mrr": 0.08441615104675293, "hits@10": 0.11678832024335861, "recovery": 0.1736028366921664, "permutable_nodes": 360, "n_nodes": 360}
+{"run": "R1", "dataset": "fb-v1", "rung": "L4loose", "seed": 4, "build_sec": 0.1, "mrr": 0.09064600616693497, "hits@10": 0.12530413269996643, "recovery": 0.18641460917449423, "permutable_nodes": 360, "n_nodes": 360}
+{"run": "R1", "dataset": "fb-v1", "rung": "L5", "seed": 0, "build_sec": 0.1, "mrr": 0.07626126706600189, "hits@10": 0.10583941638469696, "recovery": 0.15683221905088338}
+{"run": "R1", "dataset": "fb-v1", "rung": "L5", "seed": 1, "build_sec": 0.1, "mrr": 0.08075838536024094, "hits@10": 0.11192213743925095, "recovery": 0.16608059727163105}
+{"run": "R1", "dataset": "fb-v1", "rung": "L5", "seed": 2, "build_sec": 0.1, "mrr": 0.07817298173904419, "hits@10": 0.12895376980304718, "recovery": 0.16076368342198902}
+{"run": "R1", "dataset": "fb-v1", "rung": "L5", "seed": 3, "build_sec": 0.1, "mrr": 0.07513566315174103, "hits@10": 0.09002432972192764, "recovery": 0.15451740097301025}
+{"run": "R1", "dataset": "fb-v1", "rung": "L5", "seed": 4, "build_sec": 0.1, "mrr": 0.07831893861293793, "hits@10": 0.09124087542295456, "recovery": 0.16106384550031735}
+{"run": "R1", "dataset": "fb-v2", "rung": "L0", "seed": -1, "mrr": 0.5005503296852112, "hits@10": 0.6942977905273438}
+{"run": "R1", "dataset": "fb-v2", "rung": "L4", "seed": 0, "build_sec": 0.3, "mrr": 0.4545452892780304, "hits@10": 0.6288279294967651, "recovery": 0.9080910795982878, "permutable_nodes": 196, "n_nodes": 400}
+{"run": "R1", "dataset": "fb-v2", "rung": "L4", "seed": 1, "build_sec": 0.4, "mrr": 0.42936941981315613, "hits@10": 0.5887011885643005, "recovery": 0.8577946998503079, "permutable_nodes": 196, "n_nodes": 400}
+{"run": "R1", "dataset": "fb-v2", "rung": "L4", "seed": 2, "build_sec": 0.3, "mrr": 0.4711206555366516, "hits@10": 0.6594509482383728, "recovery": 0.9412053645674179, "permutable_nodes": 196, "n_nodes": 400}
+{"run": "R1", "dataset": "fb-v2", "rung": "L4", "seed": 3, "build_sec": 0.3, "mrr": 0.4482302665710449, "hits@10": 0.629883885383606, "recovery": 0.8954749202783164, "permutable_nodes": 196, "n_nodes": 400}
+{"run": "R1", "dataset": "fb-v2", "rung": "L4", "seed": 4, "build_sec": 0.3, "mrr": 0.44134554266929626, "hits@10": 0.6124604344367981, "recovery": 0.881720611283925, "permutable_nodes": 196, "n_nodes": 400}
+{"run": "R1", "dataset": "fb-v2", "rung": "L4loose", "seed": 0, "build_sec": 0.3, "mrr": 0.05951729416847229, "hits@10": 0.08975712954998016, "recovery": 0.11890371584768099, "permutable_nodes": 400, "n_nodes": 400}
+{"run": "R1", "dataset": "fb-v2", "rung": "L4loose", "seed": 1, "build_sec": 0.3, "mrr": 0.05420815944671631, "hits@10": 0.07655755430459976, "recovery": 0.10829712065258, "permutable_nodes": 400, "n_nodes": 400}
+{"run": "R1", "dataset": "fb-v2", "rung": "L4loose", "seed": 2, "build_sec": 0.3, "mrr": 0.05219082161784172, "hits@10": 0.06969377398490906, "recovery": 0.10426688091597004, "permutable_nodes": 400, "n_nodes": 400}
+{"run": "R1", "dataset": "fb-v2", "rung": "L4loose", "seed": 3, "build_sec": 0.4, "mrr": 0.055471718311309814, "hits@10": 0.08922915160655975, "recovery": 0.11082145994406667, "permutable_nodes": 400, "n_nodes": 400}
+{"run": "R1", "dataset": "fb-v2", "rung": "L4loose", "seed": 4, "build_sec": 0.3, "mrr": 0.07031004875898361, "hits@10": 0.09398099780082703, "recovery": 0.14046549285675253, "permutable_nodes": 400, "n_nodes": 400}
+{"run": "R1", "dataset": "fb-v2", "rung": "L5", "seed": 0, "build_sec": 0.3, "mrr": 0.06467774510383606, "hits@10": 0.09081310033798218, "recovery": 0.12921327041055342}
+{"run": "R1", "dataset": "fb-v2", "rung": "L5", "seed": 1, "build_sec": 0.3, "mrr": 0.05423319339752197, "hits@10": 0.07127772271633148, "recovery": 0.1083471335070743}
+{"run": "R1", "dataset": "fb-v2", "rung": "L5", "seed": 2, "build_sec": 0.3, "mrr": 0.061621204018592834, "hits@10": 0.08394932001829147, "recovery": 0.12310690926369464}
+{"run": "R1", "dataset": "fb-v2", "rung": "L5", "seed": 3, "build_sec": 0.3, "mrr": 0.05384010449051857, "hits@10": 0.07602956891059875, "recovery": 0.10756182005567806}
+{"run": "R1", "dataset": "fb-v2", "rung": "L5", "seed": 4, "build_sec": 0.3, "mrr": 0.055886972695589066, "hits@10": 0.07550158351659775, "recovery": 0.11165105561037972}
+{"run": "R1", "dataset": "fb-v3", "rung": "L0", "seed": -1, "mrr": 0.4821169376373291, "hits@10": 0.6444251537322998}
+{"run": "R1", "dataset": "fb-v3", "rung": "L4", "seed": 0, "build_sec": 0.8, "mrr": 0.44177865982055664, "hits@10": 0.601097583770752, "recovery": 0.9163309258219152, "permutable_nodes": 196, "n_nodes": 430}
+{"run": "R1", "dataset": "fb-v3", "rung": "L4", "seed": 1, "build_sec": 0.8, "mrr": 0.4289431571960449, "hits@10": 0.5831888914108276, "recovery": 0.8897077113640557, "permutable_nodes": 196, "n_nodes": 430}
+{"run": "R1", "dataset": "fb-v3", "rung": "L4", "seed": 2, "build_sec": 0.8, "mrr": 0.45055729150772095, "hits@10": 0.6097631454467773, "recovery": 0.9345394370809612, "permutable_nodes": 196, "n_nodes": 430}
+{"run": "R1", "dataset": "fb-v3", "rung": "L4", "seed": 3, "build_sec": 0.8, "mrr": 0.44758784770965576, "hits@10": 0.6019641757011414, "recovery": 0.9283802595739209, "permutable_nodes": 196, "n_nodes": 430}
+{"run": "R1", "dataset": "fb-v3", "rung": "L4", "seed": 4, "build_sec": 0.8, "mrr": 0.4286682605743408, "hits@10": 0.5840554237365723, "recovery": 0.8891375247552825, "permutable_nodes": 196, "n_nodes": 430}
+{"run": "R1", "dataset": "fb-v3", "rung": "L4loose", "seed": 0, "build_sec": 0.8, "mrr": 0.04833374172449112, "hits@10": 0.06730213761329651, "recovery": 0.10025315012008512, "permutable_nodes": 430, "n_nodes": 430}
+{"run": "R1", "dataset": "fb-v3", "rung": "L4loose", "seed": 1, "build_sec": 0.8, "mrr": 0.03614235296845436, "hits@10": 0.05748122185468674, "recovery": 0.074965947360197, "permutable_nodes": 430, "n_nodes": 430}
+{"run": "R1", "dataset": "fb-v3", "rung": "L4loose", "seed": 2, "build_sec": 0.8, "mrr": 0.05212359502911568, "hits@10": 0.07625649869441986, "recovery": 0.10811400919545658, "permutable_nodes": 430, "n_nodes": 430}
+{"run": "R1", "dataset": "fb-v3", "rung": "L4loose", "seed": 3, "build_sec": 0.8, "mrr": 0.08186221122741699, "hits@10": 0.1244945079088211, "recovery": 0.16979741808786603, "permutable_nodes": 430, "n_nodes": 430}
+{"run": "R1", "dataset": "fb-v3", "rung": "L4loose", "seed": 4, "build_sec": 0.8, "mrr": 0.03886149078607559, "hits@10": 0.055748119950294495, "recovery": 0.08060594381197289, "permutable_nodes": 430, "n_nodes": 430}
+{"run": "R1", "dataset": "fb-v3", "rung": "L5", "seed": 0, "build_sec": 0.8, "mrr": 0.04962858930230141, "hits@10": 0.0644136294722557, "recovery": 0.10293890429448346}
+{"run": "R1", "dataset": "fb-v3", "rung": "L5", "seed": 1, "build_sec": 0.8, "mrr": 0.0606696754693985, "hits@10": 0.07279029488563538, "recovery": 0.12584016601157297}
+{"run": "R1", "dataset": "fb-v3", "rung": "L5", "seed": 2, "build_sec": 0.8, "mrr": 0.051531657576560974, "hits@10": 0.08405545353889465, "recovery": 0.10688622106701136}
+{"run": "R1", "dataset": "fb-v3", "rung": "L5", "seed": 3, "build_sec": 0.8, "mrr": 0.04618321359157562, "hits@10": 0.06065857782959938, "recovery": 0.09579255567706481}
+{"run": "R1", "dataset": "fb-v3", "rung": "L5", "seed": 4, "build_sec": 0.8, "mrr": 0.0490163154900074, "hits@10": 0.06932409107685089, "recovery": 0.10166893478191405}
+{"run": "R1", "dataset": "fb-v4", "rung": "L0", "seed": -1, "mrr": 0.4768696427345276, "hits@10": 0.6707746386528015}
+{"run": "R1", "dataset": "fb-v4", "rung": "L4", "seed": 0, "build_sec": 1.5, "mrr": 0.41112497448921204, "hits@10": 0.5730633735656738, "recovery": 0.8621328296991687, "permutable_nodes": 150, "n_nodes": 438}
+{"run": "R1", "dataset": "fb-v4", "rung": "L4", "seed": 1, "build_sec": 1.5, "mrr": 0.41346725821495056, "hits@10": 0.5725352168083191, "recovery": 0.8670446200834385, "permutable_nodes": 150, "n_nodes": 438}
+{"run": "R1", "dataset": "fb-v4", "rung": "L4", "seed": 2, "build_sec": 1.5, "mrr": 0.41151389479637146, "hits@10": 0.5728873014450073, "recovery": 0.862948399138499, "permutable_nodes": 150, "n_nodes": 438}
+{"run": "R1", "dataset": "fb-v4", "rung": "L4", "seed": 3, "build_sec": 1.4, "mrr": 0.4133705496788025, "hits@10": 0.5720070004463196, "recovery": 0.8668418213990994, "permutable_nodes": 150, "n_nodes": 438}
+{"run": "R1", "dataset": "fb-v4", "rung": "L4", "seed": 4, "build_sec": 1.5, "mrr": 0.4266495108604431, "hits@10": 0.5954225063323975, "recovery": 0.8946879243832752, "permutable_nodes": 150, "n_nodes": 438}
+{"run": "R1", "dataset": "fb-v4", "rung": "L4loose", "seed": 0, "build_sec": 1.5, "mrr": 0.03653307631611824, "hits@10": 0.0507042221724987, "recovery": 0.07661019499280546, "permutable_nodes": 438, "n_nodes": 438}
+{"run": "R1", "dataset": "fb-v4", "rung": "L4loose", "seed": 1, "build_sec": 1.5, "mrr": 0.03685961291193962, "hits@10": 0.04999999701976776, "recovery": 0.07729494521919485, "permutable_nodes": 438, "n_nodes": 438}
+{"run": "R1", "dataset": "fb-v4", "rung": "L4loose", "seed": 2, "build_sec": 1.5, "mrr": 0.05560833215713501, "hits@10": 0.07957746088504791, "recovery": 0.11661118086305916, "permutable_nodes": 438, "n_nodes": 438}
+{"run": "R1", "dataset": "fb-v4", "rung": "L4loose", "seed": 3, "build_sec": 1.5, "mrr": 0.04226849600672722, "hits@10": 0.06338027864694595, "recovery": 0.08863742251290542, "permutable_nodes": 438, "n_nodes": 438}
+{"run": "R1", "dataset": "fb-v4", "rung": "L4loose", "seed": 4, "build_sec": 1.5, "mrr": 0.029642464593052864, "hits@10": 0.04436619579792023, "recovery": 0.06216051922074773, "permutable_nodes": 438, "n_nodes": 438}
+{"run": "R1", "dataset": "fb-v4", "rung": "L5", "seed": 0, "build_sec": 1.4, "mrr": 0.04862948879599571, "hits@10": 0.08397886902093887, "recovery": 0.10197648253941315}
+{"run": "R1", "dataset": "fb-v4", "rung": "L5", "seed": 1, "build_sec": 1.4, "mrr": 0.05348019301891327, "hits@10": 0.07852112501859665, "recovery": 0.11214845363636083}
+{"run": "R1", "dataset": "fb-v4", "rung": "L5", "seed": 2, "build_sec": 1.4, "mrr": 0.05388939753174782, "hits@10": 0.0776408389210701, "recovery": 0.11300655924041476}
+{"run": "R1", "dataset": "fb-v4", "rung": "L5", "seed": 3, "build_sec": 1.4, "mrr": 0.037466831505298615, "hits@10": 0.060563378036022186, "recovery": 0.07856828816020432}
+{"run": "R1", "dataset": "fb-v4", "rung": "L5", "seed": 4, "build_sec": 1.4, "mrr": 0.042452339082956314, "hits@10": 0.06355633586645126, "recovery": 0.08902294312431297}

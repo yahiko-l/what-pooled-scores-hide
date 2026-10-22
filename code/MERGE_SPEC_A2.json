@@ -1,0 +1,2258 @@
+{
+ "amendment": "A2",
+ "spec": "Relation-merge specification of the second amendment: the Freebase-to-Wikidata merge on InGram FB-25, FB-50, FB-75 and FB-100 and the YAGO 4.5 merge on InGram WK-50 and WK-100",
+ "generated_by": "make_merge_spec_a2.py (python3 -I make_merge_spec_a2.py <base_dir> <out_json>), with the source parsing of make_merge_spec.py",
+ "sources": [
+  {
+   "id": "wikiproject_freebase_mapping",
+   "title": "Wikidata:WikiProject Freebase/Mapping",
+   "url": "https://www.wikidata.org/w/index.php?title=Wikidata:WikiProject_Freebase/Mapping&oldid=254788053&action=raw",
+   "page": "https://www.wikidata.org/wiki/Wikidata:WikiProject_Freebase/Mapping",
+   "revision_id": 254788053,
+   "revision_timestamp_utc": "2015-10-04T15:14:29Z",
+   "revision_size_bytes_reported_by_api": 115622,
+   "latest_revision_id_at_retrieval": 990009490,
+   "latest_revision_timestamp_utc": "2019-07-31T17:41:52Z",
+   "retrieved_utc": "2026-10-15T03:59:16Z",
+   "license": "CC BY-SA (Wikidata project-page text)",
+   "format": "MediaWiki wikitext tables: one row per Freebase property, cell 2 = Wikidata property as {{P|n}}, cell 3 = free-text comment",
+   "path": "dl_wd_fbmapping_2015/mapping_rev254788053.wikitext",
+   "used_for": "Freebase merge groups on InGram FB-25, FB-50, FB-75 and FB-100",
+   "sha256": "1e61722e3bc86f9d3586a6bfc1084f18dae719adba90afe877d4dda5d265625d"
+  },
+  {
+   "id": "freebase_wikidata_converter_lib",
+   "title": "google/freebase-wikidata-converter convert/lib.php",
+   "url": "https://raw.githubusercontent.com/google/freebase-wikidata-converter/master/convert/lib.php",
+   "repository": "https://github.com/google/freebase-wikidata-converter",
+   "commit": "4e18711137030c41ee4ea558e2b7eb8292211b8d",
+   "commit_timestamp_utc": "2015-09-30T17:43:07Z",
+   "retrieved_utc": "2026-10-15T03:45:19Z",
+   "license": "Apache-2.0",
+   "format": "PHP source",
+   "path": "dl_gh_converter_src/convert_lib.php",
+   "used_for": "row regex, hard-coded property mappings and CVT rule applied to the mapping page",
+   "sha256": "0c64c17483cb4462cc857890651d2a8d365b35777af626239b389c9d7b12aa59"
+  },
+  {
+   "id": "yago_shapes_45",
+   "title": "YAGO 4.5 shapes, input-data/00-shapes.ttl (file header: 'This is the manually designed schema of YAGO 4.5')",
+   "url": "https://raw.githubusercontent.com/yago-naga/yago-4.6/4ef3c07ccf16675747427fe3e989a6ce96f19bae/input-data/00-shapes.ttl",
+   "repository": "https://github.com/yago-naga/yago-4.6 (GitHub repository id 632049237; named yago-naga/yago-4.5 when this commit was made)",
+   "commit": "4ef3c07ccf16675747427fe3e989a6ce96f19bae",
+   "commit_timestamp_utc": "2024-04-04T09:37:22Z",
+   "note": "last change to this file before the 'New 4.5.1 version of YAGO' commit b1edfd0f (2025-12-08); the repository has no release tags. The file's previous version (commit 9446700f, 2023-06-03) gives the same WK-50 and WK-100 groups: checks.wk_yago45_previous_version",
+   "retrieved_utc": "2026-10-15T05:05:40Z",
+   "license": "CC BY (file header: 'CC-BY The YAGO Team'; current repository licence CC BY 4.0)",
+   "format": "Turtle / SHACL: property shapes carry sh:path (YAGO property) and ys:fromProperty (Wikidata wdt: properties) and sit inside node shapes (classes)",
+   "path": "dl_yago45_shapes_4ef3c07/00-shapes.ttl",
+   "used_for": "Wikidata merge groups on InGram WK-50 and WK-100",
+   "sha256": "749a658e22d27de9bb36e0a8bd1ec700690cd77067e7a3028807104bac7d746d"
+  }
+ ],
+ "data_inputs": {
+  "ingram": {
+   "repository": "https://github.com/bdi-lab/InGram",
+   "commit": "f2554dd0c684bad71d3e01d534f2f7814cf28644",
+   "commit_timestamp_utc": "2025-05-27T06:47:13Z",
+   "files": "data/{FB-25,FB-50,FB-75,FB-100,WK-50,WK-100}/{msg,valid,test}.txt (= inference_graph, inf_valid, inf_test in ULTRA's raw directory)",
+   "retrieved_utc": "2026-10-18T06:24:09Z",
+   "path_pattern": "dl_ingram_a2/{graph}/{split}.txt",
+   "checks": "git blob hash of all 18 files equals the InGram tree at the commit; sha256 of all 18 files equals that of the raw files on the GPU server"
+  }
+ },
+ "mapping_page_parse": {
+  "row_regex": "convert/lib.php getPropertyMapping, applied to the text before '(/key/ namespace)'",
+  "rows_matched": 1073,
+  "rows_with_valid_property_cell": 289,
+  "hard_coded_mappings_from_lib_php": [
+   [
+    "/ns/measurement_unit.dated_float.number",
+    "QUANTITY"
+   ],
+   [
+    "/ns/measurement_unit.dated_integer.number",
+    "QUANTITY"
+   ],
+   [
+    "/ns/measurement_unit.dated_integer.source",
+    "S248"
+   ],
+   [
+    "/ns/measurement_unit.dated_money_value.amount",
+    "QUANTITY"
+   ],
+   [
+    "/ns/measurement_unit.dated_percentage.rate",
+    "QUANTITY"
+   ],
+   [
+    "/ns/measurement_unit.dated_percentage.source",
+    "S248"
+   ],
+   [
+    "/ns/measurement_unit.money_value.amount",
+    "QUANTITY"
+   ],
+   [
+    "/ns/location.mailing_address.citytown",
+    "ITEM"
+   ],
+   [
+    "/ns/people.person.spouse_s",
+    "SPOUSE"
+   ]
+  ],
+  "fb_relations_in_ingram_fb_files": 224,
+  "fb_relations_with_a_wikidata_image": 54,
+  "a4_paths_whose_object_is_not_the_statement_subject": [
+   "/film/actor/film./film/performance/special_performance_type"
+  ]
+ },
+ "conventions": {
+  "graph_keys": "the runner keys InGram FB-<v> as ifb-<v> and InGram WK-<v> as wk-<v>; versions in present_in, active_in and per_version are <v>",
+  "vocabulary": "a graph's relations are those of its inference graph, validation and test triples, numbered in that order of first appearance, as ULTRA's InGram loader numbers them",
+  "reverse": "true when head and tail of the triple must be swapped to align with the target property's direction",
+  "keep": "the merged relation takes the keep member's label and the keep member's native direction",
+  "keep_rule": {
+   "ifb": "member with the most inference-graph triples summed over FB-25, FB-50, FB-75 and FB-100; ties to the smallest relation string",
+   "wk": "member with the most inference-graph triples summed over WK-50 and WK-100; ties to the lowest property number"
+  },
+  "relabel": "on a graph where a group is active, every triple (h, m, t) of a member m in the graph's vocabulary becomes (h, keep, t), or (t, keep, h) when swap_head_tail_when_relabelling_to_keep is true; duplicates in the inference graph are dropped",
+  "present": "the relation has at least one triple in the graph's inference graph (msg.txt = inference_graph)",
+  "active_group": "a group is applied to a graph only when at least two of its members are present there; listed per graph in active_in",
+  "rules": {
+   "A": "the Wikidata image is a main-value statement: A1 direct row, A2 empty row annotated 'reverse of' a mapped property, A3 CVT link and CVT main property share one property (converter CVT rule, incl. its ITEM and SPOUSE special cases), A4 path that reverses a CVT main property and ends on the CVT's back-link to the statement's subject (the CVT property named after the subject's type)",
+   "B": "CVT path whose object becomes a qualifier of the subject's statement (link property -> property, CVT property -> qualifier)"
+  },
+  "yago_mapping": "a WK group is a set of Wikidata properties that the YAGO 4.5 shapes map to one YAGO property and to no other; YAGO keeps the Wikidata direction, so no member is reversed",
+  "yago_class_scope": "YAGO attaches each mapping to node shapes (classes, listed per member as yago_shapes); the WK graphs have no entity types, so the relabelling applies each mapping to every triple of the property, whatever the subject's class",
+  "profile": "8 integers per relation node of ULTRA's relation graph built from the inference graph with inverse relations: out-degree for h2h, t2t, h2t, t2h, then in-degree in the same order; self-loops count; a relation without inference edges has the zero profile",
+  "displacement_L1": "L1 distance between a member's node profile in the original inference graph, taken in the kept member's direction, and the merged relation's node profile in the merged inference graph",
+  "tiers": {
+   "low": [
+    0,
+    16
+   ],
+   "mid": [
+    17,
+    63
+   ],
+   "high": [
+    64,
+    null
+   ]
+  },
+  "strata": "merged = target relation is a member of an applied group; profile_shifted = other relation whose node profile (either direction) changed; profile_identical = the rest",
+  "absorbed": "test targets that, after relabelling, coincide with a triple of the merged inference graph; dropped from both evaluations",
+  "tiers_evaluated": "tier sizes among affected targets that are not absorbed, the target counts the analysis compares with the severity threshold",
+  "severity_comparable": "high and low tiers_evaluated each hold at least 10 targets",
+  "evaluated_split": "the InGram test triples (inf_test)",
+  "filter": "merged inference graph + merged validation triples + merged test triples"
+ },
+ "ifb": {
+  "graphs": [
+   "25",
+   "50",
+   "75",
+   "100"
+  ],
+  "groups": [
+   {
+    "id": "ifb_P17",
+    "rule": "A",
+    "target": {
+     "property": "P17"
+    },
+    "keep": "/base/biblioness/bibs_location/country",
+    "members": [
+     {
+      "relation": "/base/biblioness/bibs_location/country",
+      "reverse": false,
+      "keep": true,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A1: mapping row gives a property",
+      "present_in": [
+       "25",
+       "50",
+       "75",
+       "100"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 28,
+        "n_valid": 10,
+        "n_test": 7
+       },
+       "50": {
+        "present": true,
+        "n_inference": 5,
+        "n_valid": 6,
+        "n_test": 4
+       },
+       "75": {
+        "present": true,
+        "n_inference": 12,
+        "n_valid": 6,
+        "n_test": 6
+       },
+       "100": {
+        "present": true,
+        "n_inference": 11,
+        "n_valid": 7,
+        "n_test": 6
+       }
+      }
+     },
+     {
+      "relation": "/location/administrative_division/country",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A1: mapping row gives a property",
+      "present_in": [
+       "25",
+       "50",
+       "75"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 27,
+        "n_valid": 8,
+        "n_test": 15
+       },
+       "50": {
+        "present": true,
+        "n_inference": 24,
+        "n_valid": 8,
+        "n_test": 7
+       },
+       "75": {
+        "present": true,
+        "n_inference": 4,
+        "n_valid": 0,
+        "n_test": 1
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     },
+     {
+      "relation": "/location/administrative_division/first_level_division_of",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A1: mapping row gives a property",
+      "present_in": [
+       "25",
+       "50"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 5,
+        "n_valid": 2,
+        "n_test": 3
+       },
+       "50": {
+        "present": true,
+        "n_inference": 1,
+        "n_valid": 0,
+        "n_test": 0
+       },
+       "75": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     }
+    ],
+    "active_in": [
+     "25",
+     "50",
+     "75"
+    ]
+   },
+   {
+    "id": "ifb_P58",
+    "rule": "A",
+    "target": {
+     "property": "P58"
+    },
+    "keep": "/film/film/story_by",
+    "members": [
+     {
+      "relation": "/film/film/story_by",
+      "reverse": false,
+      "keep": true,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A1: mapping row gives a property",
+      "present_in": [
+       "25",
+       "50",
+       "75"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 15,
+        "n_valid": 3,
+        "n_test": 5
+       },
+       "50": {
+        "present": true,
+        "n_inference": 5,
+        "n_valid": 1,
+        "n_test": 3
+       },
+       "75": {
+        "present": true,
+        "n_inference": 7,
+        "n_valid": 3,
+        "n_test": 1
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     },
+     {
+      "relation": "/film/film/written_by",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A1: mapping row gives a property",
+      "present_in": [
+       "25",
+       "50",
+       "75"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 10,
+        "n_valid": 5,
+        "n_test": 3
+       },
+       "50": {
+        "present": true,
+        "n_inference": 7,
+        "n_valid": 3,
+        "n_test": 3
+       },
+       "75": {
+        "present": true,
+        "n_inference": 7,
+        "n_valid": 3,
+        "n_test": 0
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     }
+    ],
+    "active_in": [
+     "25",
+     "50",
+     "75"
+    ]
+   },
+   {
+    "id": "ifb_P131",
+    "rule": "A",
+    "target": {
+     "property": "P131"
+    },
+    "keep": "/base/aareas/schema/administrative_area/administrative_parent",
+    "members": [
+     {
+      "relation": "/base/aareas/schema/administrative_area/administrative_parent",
+      "reverse": false,
+      "keep": true,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A1: mapping row gives a property",
+      "present_in": [
+       "25",
+       "50",
+       "75",
+       "100"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 134,
+        "n_valid": 48,
+        "n_test": 38
+       },
+       "50": {
+        "present": true,
+        "n_inference": 117,
+        "n_valid": 35,
+        "n_test": 43
+       },
+       "75": {
+        "present": true,
+        "n_inference": 78,
+        "n_valid": 25,
+        "n_test": 30
+       },
+       "100": {
+        "present": true,
+        "n_inference": 67,
+        "n_valid": 34,
+        "n_test": 32
+       }
+      }
+     },
+     {
+      "relation": "/location/hud_county_place/county",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A1: mapping row gives a property",
+      "present_in": [
+       "25",
+       "50",
+       "75"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 34,
+        "n_valid": 11,
+        "n_test": 4
+       },
+       "50": {
+        "present": true,
+        "n_inference": 64,
+        "n_valid": 19,
+        "n_test": 13
+       },
+       "75": {
+        "present": true,
+        "n_inference": 3,
+        "n_valid": 3,
+        "n_test": 1
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     }
+    ],
+    "active_in": [
+     "25",
+     "50",
+     "75"
+    ]
+   },
+   {
+    "id": "ifb_P136",
+    "rule": "A",
+    "target": {
+     "property": "P136"
+    },
+    "keep": "/film/film/genre",
+    "members": [
+     {
+      "relation": "/film/film/genre",
+      "reverse": false,
+      "keep": true,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A1: mapping row gives a property",
+      "present_in": [
+       "25",
+       "50",
+       "75",
+       "100"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 75,
+        "n_valid": 24,
+        "n_test": 23
+       },
+       "50": {
+        "present": true,
+        "n_inference": 22,
+        "n_valid": 4,
+        "n_test": 4
+       },
+       "75": {
+        "present": true,
+        "n_inference": 732,
+        "n_valid": 322,
+        "n_test": 257
+       },
+       "100": {
+        "present": true,
+        "n_inference": 733,
+        "n_valid": 313,
+        "n_test": 265
+       }
+      }
+     },
+     {
+      "relation": "/tv/tv_program/genre",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A1: mapping row gives a property",
+      "present_in": [
+       "25",
+       "50",
+       "75",
+       "100"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 36,
+        "n_valid": 8,
+        "n_test": 8
+       },
+       "50": {
+        "present": true,
+        "n_inference": 29,
+        "n_valid": 8,
+        "n_test": 1
+       },
+       "75": {
+        "present": true,
+        "n_inference": 65,
+        "n_valid": 21,
+        "n_test": 14
+       },
+       "100": {
+        "present": true,
+        "n_inference": 64,
+        "n_valid": 16,
+        "n_test": 20
+       }
+      }
+     }
+    ],
+    "active_in": [
+     "25",
+     "50",
+     "75",
+     "100"
+    ]
+   },
+   {
+    "id": "ifb_P161",
+    "rule": "A",
+    "target": {
+     "property": "P161"
+    },
+    "keep": "/film/actor/film./film/performance/film",
+    "members": [
+     {
+      "relation": "/film/actor/film./film/performance/film",
+      "reverse": true,
+      "keep": true,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A4: link reverses the CVT main property, the object is the statement's subject",
+      "present_in": [
+       "25",
+       "50",
+       "75"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 182,
+        "n_valid": 58,
+        "n_test": 49
+       },
+       "50": {
+        "present": true,
+        "n_inference": 178,
+        "n_valid": 53,
+        "n_test": 55
+       },
+       "75": {
+        "present": true,
+        "n_inference": 120,
+        "n_valid": 29,
+        "n_test": 28
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     },
+     {
+      "relation": "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": true,
+      "derivation": "A3: CVT link property and CVT main property share one property",
+      "present_in": [
+       "25",
+       "50",
+       "75"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 46,
+        "n_valid": 13,
+        "n_test": 16
+       },
+       "50": {
+        "present": true,
+        "n_inference": 43,
+        "n_valid": 16,
+        "n_test": 15
+       },
+       "75": {
+        "present": true,
+        "n_inference": 6,
+        "n_valid": 3,
+        "n_test": 5
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     }
+    ],
+    "active_in": [
+     "25",
+     "50",
+     "75"
+    ]
+   },
+   {
+    "id": "ifb_P364",
+    "rule": "A",
+    "target": {
+     "property": "P364"
+    },
+    "keep": "/film/film/language",
+    "members": [
+     {
+      "relation": "/film/film/language",
+      "reverse": false,
+      "keep": true,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A1: mapping row gives a property",
+      "present_in": [
+       "25",
+       "50",
+       "75"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 35,
+        "n_valid": 11,
+        "n_test": 8
+       },
+       "50": {
+        "present": true,
+        "n_inference": 12,
+        "n_valid": 6,
+        "n_test": 3
+       },
+       "75": {
+        "present": true,
+        "n_inference": 30,
+        "n_valid": 2,
+        "n_test": 9
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     },
+     {
+      "relation": "/tv/tv_program/languages",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A1: mapping row gives a property",
+      "present_in": [
+       "25",
+       "50",
+       "75"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 4,
+        "n_valid": 5,
+        "n_test": 1
+       },
+       "50": {
+        "present": true,
+        "n_inference": 3,
+        "n_valid": 1,
+        "n_test": 0
+       },
+       "75": {
+        "present": true,
+        "n_inference": 2,
+        "n_valid": 1,
+        "n_test": 0
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     }
+    ],
+    "active_in": [
+     "25",
+     "50",
+     "75"
+    ]
+   },
+   {
+    "id": "ifb_P495",
+    "rule": "A",
+    "target": {
+     "property": "P495"
+    },
+    "keep": "/film/film/country",
+    "members": [
+     {
+      "relation": "/film/film/country",
+      "reverse": false,
+      "keep": true,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A1: mapping row gives a property",
+      "present_in": [
+       "25",
+       "50",
+       "75"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 42,
+        "n_valid": 12,
+        "n_test": 17
+       },
+       "50": {
+        "present": true,
+        "n_inference": 9,
+        "n_valid": 4,
+        "n_test": 7
+       },
+       "75": {
+        "present": true,
+        "n_inference": 9,
+        "n_valid": 0,
+        "n_test": 1
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     },
+     {
+      "relation": "/tv/tv_program/country_of_origin",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "A1: mapping row gives a property",
+      "present_in": [
+       "25",
+       "50"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 13,
+        "n_valid": 0,
+        "n_test": 4
+       },
+       "50": {
+        "present": true,
+        "n_inference": 2,
+        "n_valid": 0,
+        "n_test": 1
+       },
+       "75": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     }
+    ],
+    "active_in": [
+     "25",
+     "50"
+    ]
+   },
+   {
+    "id": "ifb_P166_P1346",
+    "rule": "B",
+    "target": {
+     "property": "P166",
+     "qualifier": "P1346"
+    },
+    "keep": "/award/award_winner/awards_won./award/award_honor/award_winner",
+    "members": [
+     {
+      "relation": "/award/award_winner/awards_won./award/award_honor/award_winner",
+      "reverse": false,
+      "keep": true,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "B: object is a qualifier of the subject's statement",
+      "present_in": [
+       "25",
+       "50",
+       "75"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 301,
+        "n_valid": 139,
+        "n_test": 121
+       },
+       "50": {
+        "present": true,
+        "n_inference": 178,
+        "n_valid": 86,
+        "n_test": 80
+       },
+       "75": {
+        "present": true,
+        "n_inference": 38,
+        "n_valid": 19,
+        "n_test": 23
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     },
+     {
+      "relation": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "B: object is a qualifier of the subject's statement",
+      "present_in": [
+       "25",
+       "50",
+       "75",
+       "100"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 31,
+        "n_valid": 11,
+        "n_test": 11
+       },
+       "50": {
+        "present": true,
+        "n_inference": 34,
+        "n_valid": 7,
+        "n_test": 8
+       },
+       "75": {
+        "present": true,
+        "n_inference": 115,
+        "n_valid": 37,
+        "n_test": 44
+       },
+       "100": {
+        "present": true,
+        "n_inference": 158,
+        "n_valid": 20,
+        "n_test": 18
+       }
+      }
+     }
+    ],
+    "active_in": [
+     "25",
+     "50",
+     "75"
+    ]
+   },
+   {
+    "id": "ifb_P1411_P1686",
+    "rule": "B",
+    "target": {
+     "property": "P1411",
+     "qualifier": "P1686"
+    },
+    "keep": "/award/award_nominee/award_nominations./award/award_nomination/nominated_for",
+    "members": [
+     {
+      "relation": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "B: object is a qualifier of the subject's statement",
+      "present_in": [
+       "25",
+       "50",
+       "75",
+       "100"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 11,
+        "n_valid": 1,
+        "n_test": 3
+       },
+       "50": {
+        "present": true,
+        "n_inference": 2,
+        "n_valid": 1,
+        "n_test": 0
+       },
+       "75": {
+        "present": true,
+        "n_inference": 32,
+        "n_valid": 11,
+        "n_test": 9
+       },
+       "100": {
+        "present": true,
+        "n_inference": 29,
+        "n_valid": 11,
+        "n_test": 12
+       }
+      }
+     },
+     {
+      "relation": "/award/award_nominee/award_nominations./award/award_nomination/nominated_for",
+      "reverse": false,
+      "keep": true,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "derivation": "B: object is a qualifier of the subject's statement",
+      "present_in": [
+       "25",
+       "50",
+       "75"
+      ],
+      "per_version": {
+       "25": {
+        "present": true,
+        "n_inference": 67,
+        "n_valid": 30,
+        "n_test": 25
+       },
+       "50": {
+        "present": true,
+        "n_inference": 123,
+        "n_valid": 48,
+        "n_test": 48
+       },
+       "75": {
+        "present": true,
+        "n_inference": 87,
+        "n_valid": 24,
+        "n_test": 22
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     }
+    ],
+    "active_in": [
+     "25",
+     "50",
+     "75"
+    ]
+   }
+  ]
+ },
+ "wk": {
+  "graphs": [
+   "50",
+   "100"
+  ],
+  "groups": [
+   {
+    "id": "wk_location",
+    "target": {
+     "yago_property": "schema:location"
+    },
+    "keep": "P17",
+    "members": [
+     {
+      "relation": "P17",
+      "reverse": false,
+      "keep": true,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "yago_shapes": [
+       "schema:Organization",
+       "schema:Place"
+      ],
+      "present_in": [
+       "50",
+       "100"
+      ],
+      "per_version": {
+       "50": {
+        "present": true,
+        "n_inference": 32,
+        "n_valid": 14,
+        "n_test": 7
+       },
+       "100": {
+        "present": true,
+        "n_inference": 465,
+        "n_valid": 361,
+        "n_test": 358
+       }
+      }
+     },
+     {
+      "relation": "P131",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "yago_shapes": [
+       "schema:Event",
+       "schema:Organization",
+       "schema:Place"
+      ],
+      "present_in": [
+       "50",
+       "100"
+      ],
+      "per_version": {
+       "50": {
+        "present": true,
+        "n_inference": 29,
+        "n_valid": 12,
+        "n_test": 16
+       },
+       "100": {
+        "present": true,
+        "n_inference": 119,
+        "n_valid": 27,
+        "n_test": 31
+       }
+      }
+     },
+     {
+      "relation": "P159",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "yago_shapes": [
+       "schema:Organization"
+      ],
+      "present_in": [
+       "50",
+       "100"
+      ],
+      "per_version": {
+       "50": {
+        "present": true,
+        "n_inference": 59,
+        "n_valid": 2,
+        "n_test": 5
+       },
+       "100": {
+        "present": true,
+        "n_inference": 420,
+        "n_valid": 8,
+        "n_test": 9
+       }
+      }
+     }
+    ],
+    "active_in": [
+     "50",
+     "100"
+    ]
+   },
+   {
+    "id": "wk_memberOf",
+    "target": {
+     "yago_property": "schema:memberOf"
+    },
+    "keep": "P54",
+    "members": [
+     {
+      "relation": "P54",
+      "reverse": false,
+      "keep": true,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "yago_shapes": [
+       "schema:Person"
+      ],
+      "present_in": [
+       "50"
+      ],
+      "per_version": {
+       "50": {
+        "present": true,
+        "n_inference": 1465,
+        "n_valid": 111,
+        "n_test": 115
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     },
+     {
+      "relation": "P102",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "yago_shapes": [
+       "schema:Person"
+      ],
+      "present_in": [
+       "50",
+       "100"
+      ],
+      "per_version": {
+       "50": {
+        "present": true,
+        "n_inference": 53,
+        "n_valid": 20,
+        "n_test": 29
+       },
+       "100": {
+        "present": true,
+        "n_inference": 1065,
+        "n_valid": 92,
+        "n_test": 111
+       }
+      }
+     },
+     {
+      "relation": "P463",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "yago_shapes": [
+       "schema:AdministrativeArea",
+       "schema:Organization",
+       "schema:Person"
+      ],
+      "present_in": [
+       "50"
+      ],
+      "per_version": {
+       "50": {
+        "present": true,
+        "n_inference": 67,
+        "n_valid": 20,
+        "n_test": 10
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     }
+    ],
+    "active_in": [
+     "50"
+    ]
+   },
+   {
+    "id": "wk_participant",
+    "target": {
+     "yago_property": "yago:participant"
+    },
+    "keep": "P1923",
+    "members": [
+     {
+      "relation": "P710",
+      "reverse": false,
+      "keep": false,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "yago_shapes": [
+       "schema:Event"
+      ],
+      "present_in": [
+       "50"
+      ],
+      "per_version": {
+       "50": {
+        "present": true,
+        "n_inference": 2,
+        "n_valid": 0,
+        "n_test": 0
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     },
+     {
+      "relation": "P1923",
+      "reverse": false,
+      "keep": true,
+      "swap_head_tail_when_relabelling_to_keep": false,
+      "yago_shapes": [
+       "schema:Event"
+      ],
+      "present_in": [
+       "50"
+      ],
+      "per_version": {
+       "50": {
+        "present": true,
+        "n_inference": 24,
+        "n_valid": 4,
+        "n_test": 1
+       },
+       "100": {
+        "present": false,
+        "n_inference": 0,
+        "n_valid": 0,
+        "n_test": 0
+       }
+      }
+     }
+    ],
+    "active_in": [
+     "50"
+    ]
+   }
+  ]
+ },
+ "checks": {
+  "ifb": {
+   "per_version": {
+    "25": {
+     "A": {
+      "active_groups": [
+       "ifb_P17",
+       "ifb_P58",
+       "ifb_P131",
+       "ifb_P136",
+       "ifb_P161",
+       "ifb_P364",
+       "ifb_P495"
+      ],
+      "n_relations_inference": 216,
+      "n_relations_inference_after": 208,
+      "per_split": {
+       "test": {
+        "n_triples": 5716,
+        "affected": 201,
+        "affected_share": 0.0352,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/018qt8",
+          "/base/biblioness/bibs_location/country",
+          "/m/03_3d"
+         ],
+         [
+          "/m/01ly5m",
+          "/location/administrative_division/country",
+          "/m/0jgd"
+         ],
+         [
+          "/m/01pt5w",
+          "/location/administrative_division/country",
+          "/m/05v8c"
+         ],
+         [
+          "/m/07ng9k",
+          "/film/film/country",
+          "/m/03_3d"
+         ],
+         [
+          "/m/07ng9k",
+          "/tv/tv_program/genre",
+          "/m/0hcr"
+         ],
+         [
+          "/m/096gm",
+          "/location/administrative_division/country",
+          "/m/06c1y"
+         ],
+         [
+          "/m/09f07",
+          "/location/administrative_division/country",
+          "/m/03rk0"
+         ],
+         [
+          "/m/0fhp9",
+          "/location/administrative_division/first_level_division_of",
+          "/m/0h7x"
+         ],
+         [
+          "/m/0hsqf",
+          "/location/administrative_division/country",
+          "/m/06qd3"
+         ]
+        ],
+        "duplicate_targets_after_merge": [
+         [
+          "/m/02v5xg",
+          "/film/film/country",
+          "/m/03_3d"
+         ],
+         [
+          "/m/02v5xg",
+          "/tv/tv_program/country_of_origin",
+          "/m/03_3d"
+         ],
+         [
+          "/m/0prrm",
+          "/film/film/story_by",
+          "/m/0gd9k"
+         ],
+         [
+          "/m/0prrm",
+          "/film/film/written_by",
+          "/m/0gd9k"
+         ]
+        ],
+        "strata": {
+         "merged": 201,
+         "profile_shifted": 3668,
+         "profile_identical": 1847
+        },
+        "tiers": {
+         "low": 97,
+         "mid": 63,
+         "high": 41
+        },
+        "tiers_evaluated": {
+         "low": 96,
+         "mid": 57,
+         "high": 39
+        }
+       }
+      },
+      "displacement_L1": {
+       "/base/aareas/schema/administrative_area/administrative_parent": 36,
+       "/base/biblioness/bibs_location/country": 24,
+       "/film/actor/film./film/performance/film": 8,
+       "/film/film/country": 16,
+       "/film/film/genre": 12,
+       "/film/film/language": 8,
+       "/film/film/story_by": 68,
+       "/film/film/written_by": 52,
+       "/location/administrative_division/country": 28,
+       "/location/administrative_division/first_level_division_of": 128,
+       "/location/hud_county_place/county": 336,
+       "/tv/tv_program/country_of_origin": 188,
+       "/tv/tv_program/genre": 132,
+       "/tv/tv_program/languages": 128,
+       "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor": 244
+      },
+      "severity_comparable": true
+     },
+     "A+B": {
+      "active_groups": [
+       "ifb_P17",
+       "ifb_P58",
+       "ifb_P131",
+       "ifb_P136",
+       "ifb_P161",
+       "ifb_P364",
+       "ifb_P495",
+       "ifb_P166_P1346",
+       "ifb_P1411_P1686"
+      ],
+      "n_relations_inference": 216,
+      "n_relations_inference_after": 206,
+      "per_split": {
+       "test": {
+        "n_triples": 5716,
+        "affected": 361,
+        "affected_share": 0.0632,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/018qt8",
+          "/base/biblioness/bibs_location/country",
+          "/m/03_3d"
+         ],
+         [
+          "/m/01ly5m",
+          "/location/administrative_division/country",
+          "/m/0jgd"
+         ],
+         [
+          "/m/01pt5w",
+          "/location/administrative_division/country",
+          "/m/05v8c"
+         ],
+         [
+          "/m/07ng9k",
+          "/film/film/country",
+          "/m/03_3d"
+         ],
+         [
+          "/m/07ng9k",
+          "/tv/tv_program/genre",
+          "/m/0hcr"
+         ],
+         [
+          "/m/096gm",
+          "/location/administrative_division/country",
+          "/m/06c1y"
+         ],
+         [
+          "/m/09f07",
+          "/location/administrative_division/country",
+          "/m/03rk0"
+         ],
+         [
+          "/m/0fhp9",
+          "/location/administrative_division/first_level_division_of",
+          "/m/0h7x"
+         ],
+         [
+          "/m/0hsqf",
+          "/location/administrative_division/country",
+          "/m/06qd3"
+         ]
+        ],
+        "duplicate_targets_after_merge": [
+         [
+          "/m/02v5xg",
+          "/film/film/country",
+          "/m/03_3d"
+         ],
+         [
+          "/m/02v5xg",
+          "/tv/tv_program/country_of_origin",
+          "/m/03_3d"
+         ],
+         [
+          "/m/0prrm",
+          "/film/film/story_by",
+          "/m/0gd9k"
+         ],
+         [
+          "/m/0prrm",
+          "/film/film/written_by",
+          "/m/0gd9k"
+         ]
+        ],
+        "strata": {
+         "merged": 361,
+         "profile_shifted": 3557,
+         "profile_identical": 1798
+        },
+        "tiers": {
+         "low": 97,
+         "mid": 63,
+         "high": 201
+        },
+        "tiers_evaluated": {
+         "low": 96,
+         "mid": 57,
+         "high": 199
+        }
+       }
+      },
+      "displacement_L1": {
+       "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for": 248,
+       "/award/award_nominee/award_nominations./award/award_nomination/nominated_for": 84,
+       "/award/award_winner/awards_won./award/award_honor/award_winner": 148,
+       "/award/award_winning_work/awards_won./award/award_honor/award_winner": 312,
+       "/base/aareas/schema/administrative_area/administrative_parent": 36,
+       "/base/biblioness/bibs_location/country": 24,
+       "/film/actor/film./film/performance/film": 8,
+       "/film/film/country": 16,
+       "/film/film/genre": 8,
+       "/film/film/language": 4,
+       "/film/film/story_by": 68,
+       "/film/film/written_by": 52,
+       "/location/administrative_division/country": 28,
+       "/location/administrative_division/first_level_division_of": 128,
+       "/location/hud_county_place/county": 336,
+       "/tv/tv_program/country_of_origin": 188,
+       "/tv/tv_program/genre": 128,
+       "/tv/tv_program/languages": 124,
+       "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor": 236
+      },
+      "severity_comparable": true
+     }
+    },
+    "50": {
+     "A": {
+      "active_groups": [
+       "ifb_P17",
+       "ifb_P58",
+       "ifb_P131",
+       "ifb_P136",
+       "ifb_P161",
+       "ifb_P364",
+       "ifb_P495"
+      ],
+      "n_relations_inference": 205,
+      "n_relations_inference_after": 197,
+      "per_split": {
+       "test": {
+        "n_triples": 3879,
+        "affected": 159,
+        "affected_share": 0.041,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/01f39b",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/01pbwwl"
+         ],
+         [
+          "/m/05l64",
+          "/base/biblioness/bibs_location/country",
+          "/m/05b4w"
+         ],
+         [
+          "/m/0j11",
+          "/location/administrative_division/country",
+          "/m/049nq"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 159,
+         "profile_shifted": 1963,
+         "profile_identical": 1757
+        },
+        "tiers": {
+         "low": 108,
+         "mid": 15,
+         "high": 36
+        },
+        "tiers_evaluated": {
+         "low": 108,
+         "mid": 14,
+         "high": 34
+        }
+       }
+      },
+      "displacement_L1": {
+       "/base/aareas/schema/administrative_area/administrative_parent": 8,
+       "/base/biblioness/bibs_location/country": 116,
+       "/film/actor/film./film/performance/film": 8,
+       "/film/film/country": 16,
+       "/film/film/genre": 20,
+       "/film/film/language": 16,
+       "/film/film/story_by": 64,
+       "/film/film/written_by": 28,
+       "/location/administrative_division/country": 24,
+       "/location/administrative_division/first_level_division_of": 280,
+       "/location/hud_county_place/county": 320,
+       "/tv/tv_program/country_of_origin": 124,
+       "/tv/tv_program/genre": 56,
+       "/tv/tv_program/languages": 72,
+       "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor": 172
+      },
+      "severity_comparable": true
+     },
+     "A+B": {
+      "active_groups": [
+       "ifb_P17",
+       "ifb_P58",
+       "ifb_P131",
+       "ifb_P136",
+       "ifb_P161",
+       "ifb_P364",
+       "ifb_P495",
+       "ifb_P166_P1346",
+       "ifb_P1411_P1686"
+      ],
+      "n_relations_inference": 205,
+      "n_relations_inference_after": 195,
+      "per_split": {
+       "test": {
+        "n_triples": 3879,
+        "affected": 295,
+        "affected_share": 0.0761,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/01f39b",
+          "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+          "/m/01pbwwl"
+         ],
+         [
+          "/m/05l64",
+          "/base/biblioness/bibs_location/country",
+          "/m/05b4w"
+         ],
+         [
+          "/m/0j11",
+          "/location/administrative_division/country",
+          "/m/049nq"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 295,
+         "profile_shifted": 1940,
+         "profile_identical": 1644
+        },
+        "tiers": {
+         "low": 156,
+         "mid": 15,
+         "high": 124
+        },
+        "tiers_evaluated": {
+         "low": 156,
+         "mid": 14,
+         "high": 122
+        }
+       }
+      },
+      "displacement_L1": {
+       "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for": 240,
+       "/award/award_nominee/award_nominations./award/award_nomination/nominated_for": 12,
+       "/award/award_winner/awards_won./award/award_honor/award_winner": 92,
+       "/award/award_winning_work/awards_won./award/award_honor/award_winner": 228,
+       "/base/aareas/schema/administrative_area/administrative_parent": 8,
+       "/base/biblioness/bibs_location/country": 116,
+       "/film/actor/film./film/performance/film": 12,
+       "/film/film/country": 16,
+       "/film/film/genre": 20,
+       "/film/film/language": 16,
+       "/film/film/story_by": 64,
+       "/film/film/written_by": 28,
+       "/location/administrative_division/country": 24,
+       "/location/administrative_division/first_level_division_of": 280,
+       "/location/hud_county_place/county": 320,
+       "/tv/tv_program/country_of_origin": 124,
+       "/tv/tv_program/genre": 56,
+       "/tv/tv_program/languages": 72,
+       "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor": 168
+      },
+      "severity_comparable": true
+     }
+    },
+    "75": {
+     "A": {
+      "active_groups": [
+       "ifb_P17",
+       "ifb_P58",
+       "ifb_P131",
+       "ifb_P136",
+       "ifb_P161",
+       "ifb_P364"
+      ],
+      "n_relations_inference": 186,
+      "n_relations_inference_after": 180,
+      "per_split": {
+       "test": {
+        "n_triples": 3106,
+        "affected": 352,
+        "affected_share": 0.1133,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/0fn2g",
+          "/base/biblioness/bibs_location/country",
+          "/m/07f1x"
+         ]
+        ],
+        "duplicate_targets_after_merge": [
+         [
+          "/m/0dlwj",
+          "/base/biblioness/bibs_location/country",
+          "/m/01xbgx"
+         ],
+         [
+          "/m/0dlwj",
+          "/location/administrative_division/country",
+          "/m/01xbgx"
+         ]
+        ],
+        "strata": {
+         "merged": 352,
+         "profile_shifted": 1622,
+         "profile_identical": 1132
+        },
+        "tiers": {
+         "low": 330,
+         "mid": 0,
+         "high": 22
+        },
+        "tiers_evaluated": {
+         "low": 329,
+         "mid": 0,
+         "high": 22
+        }
+       }
+      },
+      "displacement_L1": {
+       "/base/aareas/schema/administrative_area/administrative_parent": 4,
+       "/base/biblioness/bibs_location/country": 12,
+       "/film/actor/film./film/performance/film": 8,
+       "/film/film/genre": 16,
+       "/film/film/language": 4,
+       "/film/film/story_by": 76,
+       "/film/film/written_by": 52,
+       "/location/administrative_division/country": 64,
+       "/location/hud_county_place/county": 340,
+       "/tv/tv_program/genre": 132,
+       "/tv/tv_program/languages": 128,
+       "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor": 268
+      },
+      "severity_comparable": true
+     },
+     "A+B": {
+      "active_groups": [
+       "ifb_P17",
+       "ifb_P58",
+       "ifb_P131",
+       "ifb_P136",
+       "ifb_P161",
+       "ifb_P364",
+       "ifb_P166_P1346",
+       "ifb_P1411_P1686"
+      ],
+      "n_relations_inference": 186,
+      "n_relations_inference_after": 178,
+      "per_split": {
+       "test": {
+        "n_triples": 3106,
+        "affected": 450,
+        "affected_share": 0.1449,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/0fn2g",
+          "/base/biblioness/bibs_location/country",
+          "/m/07f1x"
+         ]
+        ],
+        "duplicate_targets_after_merge": [
+         [
+          "/m/0dlwj",
+          "/base/biblioness/bibs_location/country",
+          "/m/01xbgx"
+         ],
+         [
+          "/m/0dlwj",
+          "/location/administrative_division/country",
+          "/m/01xbgx"
+         ]
+        ],
+        "strata": {
+         "merged": 450,
+         "profile_shifted": 1720,
+         "profile_identical": 936
+        },
+        "tiers": {
+         "low": 73,
+         "mid": 257,
+         "high": 120
+        },
+        "tiers_evaluated": {
+         "low": 72,
+         "mid": 257,
+         "high": 120
+        }
+       }
+      },
+      "displacement_L1": {
+       "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for": 228,
+       "/award/award_nominee/award_nominations./award/award_nomination/nominated_for": 100,
+       "/award/award_winner/awards_won./award/award_honor/award_winner": 228,
+       "/award/award_winning_work/awards_won./award/award_honor/award_winner": 136,
+       "/base/aareas/schema/administrative_area/administrative_parent": 4,
+       "/base/biblioness/bibs_location/country": 12,
+       "/film/actor/film./film/performance/film": 8,
+       "/film/film/genre": 20,
+       "/film/film/language": 8,
+       "/film/film/story_by": 76,
+       "/film/film/written_by": 52,
+       "/location/administrative_division/country": 64,
+       "/location/hud_county_place/county": 340,
+       "/tv/tv_program/genre": 128,
+       "/tv/tv_program/languages": 124,
+       "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor": 260
+      },
+      "severity_comparable": true
+     }
+    },
+    "100": {
+     "A": {
+      "active_groups": [
+       "ifb_P136"
+      ],
+      "n_relations_inference": 77,
+      "n_relations_inference_after": 76,
+      "per_split": {
+       "test": {
+        "n_triples": 2329,
+        "affected": 285,
+        "affected_share": 0.1224,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/064r97z",
+          "/tv/tv_program/genre",
+          "/m/04xvlr"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 285,
+         "profile_shifted": 218,
+         "profile_identical": 1826
+        },
+        "tiers": {
+         "low": 265,
+         "mid": 20,
+         "high": 0
+        },
+        "tiers_evaluated": {
+         "low": 265,
+         "mid": 19,
+         "high": 0
+        }
+       }
+      },
+      "displacement_L1": {
+       "/film/film/genre": 8,
+       "/tv/tv_program/genre": 60
+      },
+      "severity_comparable": false
+     },
+     "A+B": {
+      "active_groups": [
+       "ifb_P136"
+      ],
+      "n_relations_inference": 77,
+      "n_relations_inference_after": 76,
+      "per_split": {
+       "test": {
+        "n_triples": 2329,
+        "affected": 285,
+        "affected_share": 0.1224,
+        "absorbed_into_merged_inference_graph": [
+         [
+          "/m/064r97z",
+          "/tv/tv_program/genre",
+          "/m/04xvlr"
+         ]
+        ],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 285,
+         "profile_shifted": 218,
+         "profile_identical": 1826
+        },
+        "tiers": {
+         "low": 265,
+         "mid": 20,
+         "high": 0
+        },
+        "tiers_evaluated": {
+         "low": 265,
+         "mid": 19,
+         "high": 0
+        }
+       }
+      },
+      "displacement_L1": {
+       "/film/film/genre": 8,
+       "/tv/tv_program/genre": 60
+      },
+      "severity_comparable": false
+     }
+    }
+   }
+  },
+  "wk": {
+   "per_version": {
+    "50": {
+     "yago": {
+      "active_groups": [
+       "wk_location",
+       "wk_memberOf",
+       "wk_participant"
+      ],
+      "n_relations_inference": 93,
+      "n_relations_inference_after": 88,
+      "per_split": {
+       "test": {
+        "n_triples": 3225,
+        "affected": 183,
+        "affected_share": 0.0567,
+        "absorbed_into_merged_inference_graph": [],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 183,
+         "profile_shifted": 1156,
+         "profile_identical": 1886
+        },
+        "tiers": {
+         "low": 0,
+         "mid": 11,
+         "high": 172
+        },
+        "tiers_evaluated": {
+         "low": 0,
+         "mid": 11,
+         "high": 172
+        }
+       }
+      },
+      "displacement_L1": {
+       "P17": 76,
+       "P54": 80,
+       "P102": 88,
+       "P131": 76,
+       "P159": 120,
+       "P463": 56,
+       "P710": 8,
+       "P1923": 48
+      },
+      "severity_comparable": false
+     }
+    },
+    "100": {
+     "yago": {
+      "active_groups": [
+       "wk_location"
+      ],
+      "n_relations_inference": 37,
+      "n_relations_inference_after": 35,
+      "per_split": {
+       "test": {
+        "n_triples": 4496,
+        "affected": 398,
+        "affected_share": 0.0885,
+        "absorbed_into_merged_inference_graph": [],
+        "duplicate_targets_after_merge": [],
+        "strata": {
+         "merged": 398,
+         "profile_shifted": 1958,
+         "profile_identical": 2140
+        },
+        "tiers": {
+         "low": 358,
+         "mid": 31,
+         "high": 9
+        },
+        "tiers_evaluated": {
+         "low": 358,
+         "mid": 31,
+         "high": 9
+        }
+       }
+      },
+      "displacement_L1": {
+       "P17": 12,
+       "P131": 60,
+       "P159": 64
+      },
+      "severity_comparable": false
+     }
+    }
+   }
+  },
+  "wk_yago45_previous_version": {
+   "commit": "9446700f62931a445b35237b914e83f19a48b507",
+   "commit_timestamp_utc": "2023-06-03T08:31:40Z",
+   "url": "https://raw.githubusercontent.com/yago-naga/yago-4.6/9446700f62931a445b35237b914e83f19a48b507/input-data/00-shapes.ttl",
+   "retrieved_utc": "2026-10-15T07:44:49Z",
+   "sha256": "cf0ae841066e5bdc8c5329bf3b2d98f9b8996f12220a9d73dfcfea272e678ce4",
+   "same_wk_groups": true
+  },
+  "warnings": [],
+  "summary": {
+   "ifb-25|A": {
+    "active_groups": [
+     "ifb_P17",
+     "ifb_P58",
+     "ifb_P131",
+     "ifb_P136",
+     "ifb_P161",
+     "ifb_P364",
+     "ifb_P495"
+    ],
+    "affected": 201,
+    "n_test": 5716,
+    "affected_share": 0.0352,
+    "tiers": {
+     "low": 97,
+     "mid": 63,
+     "high": 41
+    },
+    "tiers_evaluated": {
+     "low": 96,
+     "mid": 57,
+     "high": 39
+    },
+    "severity_comparable": true
+   },
+   "ifb-25|A+B": {
+    "active_groups": [
+     "ifb_P17",
+     "ifb_P58",
+     "ifb_P131",
+     "ifb_P136",
+     "ifb_P161",
+     "ifb_P364",
+     "ifb_P495",
+     "ifb_P166_P1346",
+     "ifb_P1411_P1686"
+    ],
+    "affected": 361,
+    "n_test": 5716,
+    "affected_share": 0.0632,
+    "tiers": {
+     "low": 97,
+     "mid": 63,
+     "high": 201
+    },
+    "tiers_evaluated": {
+     "low": 96,
+     "mid": 57,
+     "high": 199
+    },
+    "severity_comparable": true
+   },
+   "ifb-50|A": {
+    "active_groups": [
+     "ifb_P17",
+     "ifb_P58",
+     "ifb_P131",
+     "ifb_P136",
+     "ifb_P161",
+     "ifb_P364",
+     "ifb_P495"
+    ],
+    "affected": 159,
+    "n_test": 3879,
+    "affected_share": 0.041,
+    "tiers": {
+     "low": 108,
+     "mid": 15,
+     "high": 36
+    },
+    "tiers_evaluated": {
+     "low": 108,
+     "mid": 14,
+     "high": 34
+    },
+    "severity_comparable": true
+   },
+   "ifb-50|A+B": {
+    "active_groups": [
+     "ifb_P17",
+     "ifb_P58",
+     "ifb_P131",
+     "ifb_P136",
+     "ifb_P161",
+     "ifb_P364",
+     "ifb_P495",
+     "ifb_P166_P1346",
+     "ifb_P1411_P1686"
+    ],
+    "affected": 295,
+    "n_test": 3879,
+    "affected_share": 0.0761,
+    "tiers": {
+     "low": 156,
+     "mid": 15,
+     "high": 124
+    },
+    "tiers_evaluated": {
+     "low": 156,
+     "mid": 14,
+     "high": 122
+    },
+    "severity_comparable": true
+   },
+   "ifb-75|A": {
+    "active_groups": [
+     "ifb_P17",
+     "ifb_P58",
+     "ifb_P131",
+     "ifb_P136",
+     "ifb_P161",
+     "ifb_P364"
+    ],
+    "affected": 352,
+    "n_test": 3106,
+    "affected_share": 0.1133,
+    "tiers": {
+     "low": 330,
+     "mid": 0,
+     "high": 22
+    },
+    "tiers_evaluated": {
+     "low": 329,
+     "mid": 0,
+     "high": 22
+    },
+    "severity_comparable": true
+   },
+   "ifb-75|A+B": {
+    "active_groups": [
+     "ifb_P17",
+     "ifb_P58",
+     "ifb_P131",
+     "ifb_P136",
+     "ifb_P161",
+     "ifb_P364",
+     "ifb_P166_P1346",
+     "ifb_P1411_P1686"
+    ],
+    "affected": 450,
+    "n_test": 3106,
+    "affected_share": 0.1449,
+    "tiers": {
+     "low": 73,
+     "mid": 257,
+     "high": 120
+    },
+    "tiers_evaluated": {
+     "low": 72,
+     "mid": 257,
+     "high": 120
+    },
+    "severity_comparable": true
+   },
+   "ifb-100|A": {
+    "active_groups": [
+     "ifb_P136"
+    ],
+    "affected": 285,
+    "n_test": 2329,
+    "affected_share": 0.1224,
+    "tiers": {
+     "low": 265,
+     "mid": 20,
+     "high": 0
+    },
+    "tiers_evaluated": {
+     "low": 265,
+     "mid": 19,
+     "high": 0
+    },
+    "severity_comparable": false
+   },
+   "ifb-100|A+B": {
+    "active_groups": [
+     "ifb_P136"
+    ],
+    "affected": 285,
+    "n_test": 2329,
+    "affected_share": 0.1224,
+    "tiers": {
+     "low": 265,
+     "mid": 20,
+     "high": 0
+    },
+    "tiers_evaluated": {
+     "low": 265,
+     "mid": 19,
+     "high": 0
+    },
+    "severity_comparable": false
+   },
+   "wk-50|yago": {
+    "active_groups": [
+     "wk_location",
+     "wk_memberOf",
+     "wk_participant"
+    ],
+    "affected": 183,
+    "n_test": 3225,
+    "affected_share": 0.0567,
+    "tiers": {
+     "low": 0,
+     "mid": 11,
+     "high": 172
+    },
+    "tiers_evaluated": {
+     "low": 0,
+     "mid": 11,
+     "high": 172
+    },
+    "severity_comparable": false
+   },
+   "wk-100|yago": {
+    "active_groups": [
+     "wk_location"
+    ],
+    "affected": 398,
+    "n_test": 4496,
+    "affected_share": 0.0885,
+    "tiers": {
+     "low": 358,
+     "mid": 31,
+     "high": 9
+    },
+    "tiers_evaluated": {
+     "low": 358,
+     "mid": 31,
+     "high": 9
+    },
+    "severity_comparable": false
+   }
+  }
+ }
+}

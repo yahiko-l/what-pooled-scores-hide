@@ -1,0 +1,17 @@
+{
+  "run_id": "JOINT_RENAME_CONTROL_prereg_20260903",
+  "n_cells": 20,
+  "band": [
+    0.99,
+    1.01
+  ],
+  "all_in_band": true,
+  "recovery_min": 0.9998242405399197,
+  "recovery_max": 1.0000002499829854,
+  "recovery_median": 1.0,
+  "frac_rank_identical_min": 0.9987834549878345,
+  "max_abs_rank_delta": 1,
+  "certificate": "C-JR-1 passed on every cell (a failure aborts the run)",
+  "numpy": "1.26.4",
+  "torch": "2.1.2+cu121"
+}
